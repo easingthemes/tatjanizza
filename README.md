@@ -1,52 +1,71 @@
-# Tina Starter 🦙 .
+# tatjanizza.com
 
-![tina-nextjs-starter-demo](https://user-images.githubusercontent.com/103008/130587027-995ccc45-a852-4f90-b658-13e8e0517339.gif)
+Personal site for **Tatjanizza** — a musician who records in ancient and modern languages
+(Akkadian, Phoenician, Old Norse, Sanskrit, Old Greek, Hebrew, Welsh, Serbian). Portfolio and blog,
+with all content editable through a visual CMS rather than by editing code.
 
-This Next.js starter is powered by [TinaCMS](https://app.tina.io) for you and your team to visually live edit the structured content of your website. ✨
+| | |
+|---|---|
+| Production | https://www.tatjanizza.com |
+| Content editing | https://www.tatjanizza.com/admin |
+| Music | [Spotify](https://open.spotify.com/artist/09tBWDb9mvGH9ls4c2ovDr) |
 
-The content is managed through Markdown and JSON files stored in your GitHub repository, and queried through Tina GraphQL API.
+> [!IMPORTANT]
+> **The site currently shows a temporary "coming soon" splash.** `app/page.tsx` renders
+> `components/coming-soon.tsx` and deliberately bypasses the site layout; `<Header>` and `<Footer>`
+> are commented out site-wide in `components/layout/layout.tsx`. The real Tina-driven home page is
+> commented out in `app/page.tsx`, ready to restore. See [CONTRIBUTING.md](./CONTRIBUTING.md#restoring-the-real-site).
 
-### Features
+## Stack
 
-- [Tina Headless CMS](https://app.tina.io) for authentication, content modeling, visual editing and team management.
-- [Vercel](https://vercel.com) deployment to visually edit your site from the `/admin` route.
-- Local development workflow from the filesystem with a local GraqhQL server.
+- **[Next.js 15](https://nextjs.org)** App Router, React 18, TypeScript
+- **[TinaCMS](https://tina.io)** — content lives as Markdown/MDX/JSON in `content/`, queried through
+  Tina's generated GraphQL client. There is no database.
+- **Tailwind CSS v4** configured entirely in `styles.css` (no `tailwind.config.js`), with
+  [shadcn/ui](https://ui.shadcn.com) primitives in `components/ui/`
+- **Biome** for lint and formatting
+- **Vercel** for hosting
 
-## Requirements
+## Quick start
 
-- Git, [Node.js Active LTS](https://nodejs.org/en/about/releases/), pnpm installed for local development.
-- A [TinaCMS](https://app.tina.io) account for live editing.
+Requires Node 22 (see `.nvmrc`) and pnpm.
 
-## Local Development
-
-Install the project's dependencies:
-
-> [!NOTE]  
-> [Do you know the best package manager for Node.js?](https://www.ssw.com.au/rules/best-package-manager-for-node/) Using the right package manager can greatly enhance your development workflow. We recommend using pnpm for its speed and efficient handling of dependencies. Learn more about why pnpm might be the best choice for your projects by checking out this rule from SSW.
-
-
-```
+```bash
 pnpm install
-```
-
-Run the project locally:
-
-```
+cp .env.example .env   # then fill in the values below
 pnpm dev
+```
+
+`.env` needs credentials from your [TinaCloud](https://app.tina.io) project:
+
+```
+NEXT_PUBLIC_TINA_CLIENT_ID=
+TINA_TOKEN=
+NEXT_PUBLIC_TINA_BRANCH=main
 ```
 
 ### Local URLs
 
-- http://localhost:3000 : browse the website
-- http://localhost:3000/admin : connect to Tina Cloud and go in edit mode
-- http://localhost:3000/exit-admin : log out of Tina Cloud
-- http://localhost:4001/altair/ : GraphQL playground to test queries and browse the API documentation
+| URL | |
+|---|---|
+| http://localhost:3000 | the site |
+| http://localhost:3000/admin | visual editing |
+| http://localhost:3000/exit-admin | log out of TinaCloud |
+| http://localhost:4001/altair/ | GraphQL playground for the content API |
+
+## Documentation
+
+| Document | For |
+|---|---|
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | developing: commands, adding blocks, conventions, gotchas |
+| [docs/editing-content.md](./docs/editing-content.md) | editing the site's words and images — no code |
+| [CLAUDE.md](./CLAUDE.md) | architecture notes, also read by AI coding assistants |
 
 ## Deployment
 
-This site is hosted on **Vercel**, deployed automatically from the `main` branch of
+Hosted on **Vercel**, deployed automatically from the `main` branch of
 [easingthemes/tatjanizza](https://github.com/easingthemes/tatjanizza). Pushing to `main` triggers a
-production deploy; no manual step and no CI workflow in this repo.
+production deploy — there is no CI workflow in this repo and no manual step.
 
 | | |
 |---|---|
@@ -63,14 +82,8 @@ using an `A` record on the apex and a `CNAME` on `www` pointing at the project's
 > subdomains, so do not use the generic legacy values (`cname.vercel-dns.com`, `76.76.21.21`), and
 > never add both an `A` and a `CNAME` for the same hostname.
 
-The following environment variables must be set in the Vercel project (Settings → Environment
-Variables), not just in local `.env`:
-
-- `NEXT_PUBLIC_TINA_CLIENT_ID`
-- `TINA_TOKEN`
-- `NEXT_PUBLIC_TINA_BRANCH`
-
-You get the first two from your TinaCloud project at [app.tina.io](https://app.tina.io).
+`NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN` and `NEXT_PUBLIC_TINA_BRANCH` must also be set in the
+Vercel project (Settings → Environment Variables), not only in local `.env`.
 
 > [!NOTE]
 > Vercel is a deliberate choice over GitHub Pages. Static export (`output: 'export'`) would work —
@@ -79,50 +92,17 @@ You get the first two from your TinaCloud project at [app.tina.io](https://app.t
 > `rewrites()` and `headers()` config in `next.config.ts`. Don't convert to a static export without
 > revisiting those tradeoffs.
 
-### Building the Starter Locally (Using the hosted content API)
+## Credits & licence
 
-Replace the `.env.example`, with `.env`
+Built from the [Tina Cloud Starter](https://github.com/tinacms/tina-cloud-starter) by SSW. The
+inherited starter code is under the [Apache 2.0 licence](./LICENSE); see [NOTICE](./NOTICE) for the
+original attribution, which Apache 2.0 requires be kept.
 
-```
-NEXT_PUBLIC_TINA_CLIENT_ID=<get this from the project you create at app.tina.io>
-TINA_TOKEN=<get this from the project you create at app.tina.io>
-NEXT_PUBLIC_TINA_BRANCH=<Specify the branch with Tina configured>
-```
+Site content — writing, images, artwork and music — is **not** covered by that licence and remains
+© Tatjanizza, all rights reserved.
 
-Build the project:
+### Useful references
 
-```bash
-pnpm build
-```
-
-## Getting Help
-
-To get help with any TinaCMS challenges you may have:
-
-- Visit the [documentation](https://tina.io/docs/) to learn about Tina.
-- [Join our Discord](https://discord.gg/zumN63Ybpf) to share feedback.
-- Visit the [community forum](https://community.tinacms.org/) to ask questions.
-- Get support through the chat widget on the TinaCMS Dashboard
-- [Email us](mailto:support@tina.io) to schedule a call with our team and share more about your context and what you're trying to achieve.
-- [Search or open an issue](https://github.com/tinacms/tinacms/issues) if something is not working.
-- Reach out on Twitter at [@tina_cms](https://twitter.com/tina_cms).
-
-## Development tips
-
-### Visual Studio Code GraphQL extension
-
-[Install the GraphQL extension](https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql) to benefit from type auto-completion.
-
-### Typescript
-
-A good way to ensure your components match the shape of your data is to leverage the auto-generated TypeScript types.
-These are rebuilt when your `tina` config changes.
-
-## LICENSE
-
-Licensed under the [Apache 2.0 license](./LICENSE).
-
-
-# Repository cleaned of LFS content
-# Repository cleaned of LFS content - Wed Sep 17 15:00:42 AEST 2025
-
+- [TinaCMS documentation](https://tina.io/docs/)
+- [VS Code GraphQL extension](https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql)
+  for autocompletion against the generated schema

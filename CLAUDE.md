@@ -2,6 +2,8 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow (setup, commit conventions, how to restore the real home page) and [docs/editing-content.md](./docs/editing-content.md) for the non-technical content-editing guide. Keep this file and CONTRIBUTING.md in step — they intentionally overlap on the block-adding pattern and Biome settings.
+
 ## Commands
 
 Package manager is **pnpm** (Node v22, see `.nvmrc`).
