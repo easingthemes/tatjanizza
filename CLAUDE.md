@@ -75,7 +75,9 @@ Schema co-location is the core convention here: Tina schemas import from `compon
 
 Hosted on **Vercel**, auto-deployed from `main` in [easingthemes/tatjanizza](https://github.com/easingthemes/tatjanizza). There is no `.github/workflows/` directory and none is needed — Vercel builds on push.
 
-The only live URL is `tatjanizza.vercel.app`. `www.tatjanizza.com` and the apex `tatjanizza.com` are registered in Vercel but DNS (at DreamHost) is not yet pointing at them — see the README for the two records required.
+Production is `www.tatjanizza.com`; the apex `tatjanizza.com` 308-redirects to it, and `tatjanizza.vercel.app` remains as an alias. DNS is at DreamHost, not Vercel's nameservers.
+
+`app/layout.tsx` hardcodes `metadataBase` to `https://www.tatjanizza.com` so OpenGraph image paths resolve absolutely — update it there if the production domain ever changes.
 
 `NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN`, and `NEXT_PUBLIC_TINA_BRANCH` must exist in the Vercel project settings, not only in local `.env`.
 
