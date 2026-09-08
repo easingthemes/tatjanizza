@@ -44,24 +44,45 @@ pnpm dev
 
 ## Deployment
 
-### GitHub Pages
+This site is hosted on **Vercel**, deployed automatically from the `main` branch of
+[easingthemes/tatjanizza](https://github.com/easingthemes/tatjanizza). Pushing to `main` triggers a
+production deploy; no manual step and no CI workflow in this repo.
 
-This starter can be deployed to GitHub Pages. A GitHub Actions workflow is included that handles the build and deployment process. 
+| | |
+|---|---|
+| Live now | https://tatjanizza.vercel.app |
+| Intended production | `www.tatjanizza.com` — added in Vercel, DNS not yet pointing at it |
+| Apex | `tatjanizza.com` — 308-redirects to `www`; needs an `A` record |
 
-To deploy to GitHub Pages:
+DNS is at **DreamHost** (nameservers `ns1`–`ns3.dreamhost.com`). To finish the custom domain, two
+records are needed in the DreamHost zone, which currently holds only its `NS` records:
 
-1. In your repository settings, ensure GitHub Pages is enabled and set to deploy from the `gh-pages` branch
-2. Push changes to your main branch - the workflow will automatically build and deploy the site
-
-> [!NOTE]
-> When deploying to GitHub Pages, you'll need to update your secrets in Settings | Secrets and variables | Actions to include:
-> - `NEXT_PUBLIC_TINA_CLIENT_ID`
-> - `TINA_TOKEN`
->
-> You get these from your TinaCloud project - [read the docs](https://tina.io/docs/tina-cloud/deployment-options/github-pages)
+| Type | Host | Points to |
+|---|---|---|
+| `A` | *(blank — apex)* | `216.198.79.1` |
+| `CNAME` | `www` | the project's unique target, e.g. `<hash>.vercel-dns-0XX.com` |
 
 > [!IMPORTANT]
-> GitHub Pages does not support server side code, so this will run as a static site. If you don't want to deploy to GitHub pages, just delete `.github/workflows/build-and-deploy.yml`
+> Do not use the generic legacy targets (`cname.vercel-dns.com`, `76.76.21.21`). Vercel issues a
+> **per-project** CNAME target for subdomains — read the exact value from the `www.tatjanizza.com`
+> row under Vercel → Settings → Domains → *DNS configuration*. Never add both an `A` and a `CNAME`
+> for the same hostname.
+
+The following environment variables must be set in the Vercel project (Settings → Environment
+Variables), not just in local `.env`:
+
+- `NEXT_PUBLIC_TINA_CLIENT_ID`
+- `TINA_TOKEN`
+- `NEXT_PUBLIC_TINA_BRANCH`
+
+You get the first two from your TinaCloud project at [app.tina.io](https://app.tina.io).
+
+> [!NOTE]
+> Vercel is a deliberate choice over GitHub Pages. Static export (`output: 'export'`) would work —
+> this app has no API routes, middleware, or server actions — but it would disable `next/image`
+> optimization, drop ISR in favour of a full rebuild on every content save, and silently ignore the
+> `rewrites()` and `headers()` config in `next.config.ts`. Don't convert to a static export without
+> revisiting those tradeoffs.
 
 ### Building the Starter Locally (Using the hosted content API)
 
