@@ -24,9 +24,48 @@ const lato = Lato({
   weight: "400",
 });
 
+const SITE_NAME = "Tatjanizza";
+const SITE_DESCRIPTION =
+  "Music in ancient and modern tongues — Akkadian, Phoenician, Old Norse, Sanskrit, Old Greek, Hebrew, Welsh and Serbian.";
+
 export const metadata: Metadata = {
-  title: "Tina",
-  description: "Tina Cloud Starter",
+  // Required so relative OG/Twitter image paths resolve to absolute URLs.
+  metadataBase: new URL("https://www.tatjanizza.com"),
+  title: {
+    default: SITE_NAME,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME }],
+  creator: SITE_NAME,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: "/",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: SITE_NAME,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    images: ["/og.jpg"],
+  },
+  // Icons are picked up by convention from app/favicon.ico, app/icon.png
+  // and app/apple-icon.png — no need to declare them here.
 };
 
 export default function RootLayout({

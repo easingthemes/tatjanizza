@@ -50,23 +50,18 @@ production deploy; no manual step and no CI workflow in this repo.
 
 | | |
 |---|---|
-| Live now | https://tatjanizza.vercel.app |
-| Intended production | `www.tatjanizza.com` — added in Vercel, DNS not yet pointing at it |
-| Apex | `tatjanizza.com` — 308-redirects to `www`; needs an `A` record |
+| Production | https://www.tatjanizza.com |
+| Apex | `tatjanizza.com` — 308-redirects to `www` |
+| Vercel alias | https://tatjanizza.vercel.app |
 
-DNS is at **DreamHost** (nameservers `ns1`–`ns3.dreamhost.com`). To finish the custom domain, two
-records are needed in the DreamHost zone, which currently holds only its `NS` records:
-
-| Type | Host | Points to |
-|---|---|---|
-| `A` | *(blank — apex)* | `216.198.79.1` |
-| `CNAME` | `www` | the project's unique target, e.g. `<hash>.vercel-dns-0XX.com` |
+DNS stays at **DreamHost** (nameservers `ns1`–`ns3.dreamhost.com`) rather than moving to Vercel's,
+using an `A` record on the apex and a `CNAME` on `www` pointing at the project's Vercel target.
 
 > [!IMPORTANT]
-> Do not use the generic legacy targets (`cname.vercel-dns.com`, `76.76.21.21`). Vercel issues a
-> **per-project** CNAME target for subdomains — read the exact value from the `www.tatjanizza.com`
-> row under Vercel → Settings → Domains → *DNS configuration*. Never add both an `A` and a `CNAME`
-> for the same hostname.
+> If these records ever need re-creating, read the values from the relevant row under Vercel →
+> Settings → Domains → *DNS configuration*. Vercel issues a **per-project** CNAME target for
+> subdomains, so do not use the generic legacy values (`cname.vercel-dns.com`, `76.76.21.21`), and
+> never add both an `A` and a `CNAME` for the same hostname.
 
 The following environment variables must be set in the Vercel project (Settings → Environment
 Variables), not just in local `.env`:

@@ -1,11 +1,11 @@
 {
   "header": {
     "icon": {
-      "name": "Tina",
+      "name": "BiMusic",
       "color": "orange",
       "style": "float"
     },
-    "name": "Tina Starter",
+    "name": "Tatjanizza",
     "color": "default",
     "nav": [
       {
@@ -26,27 +26,9 @@
     "social": [
       {
         "icon": {
-          "name": "FaLinkedin"
+          "name": "FaSpotify"
         },
-        "url": "https://www.linkedin.com/company/tinacms"
-      },
-      {
-        "icon": {
-          "name": "FaGithub"
-        },
-        "url": "https://github.com/tinacms/tinacms"
-      },
-      {
-        "icon": {
-          "name": "FaYoutube"
-        },
-        "url": "https://www.youtube.com/@TinaCMS"
-      },
-      {
-        "icon": {
-          "name": "FaXTwitter"
-        },
-        "url": "https://x.com/TinaCMS"
+        "url": "https://open.spotify.com/artist/09tBWDb9mvGH9ls4c2ovDr"
       }
     ]
   },
