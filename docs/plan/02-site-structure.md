@@ -25,8 +25,12 @@ The real document. Section order as delivered in msg 2:
 | 3 | **ORIGINS** | Dated timeline, May 2025 → 18 May 2026 |
 | 4 | **LANGUAGE AS TIME** | Why the languages are dramaturgy, not translation |
 | 5 | **WHEN THE WORK FOUND ITS MEDIUM** | The recursion; AI as presence/subject/addressee/medium |
-| 6 | **ABOUT TATJANIZZA** | Berlin-based bio |
-| 7 | **Provenance footer** | Credits block — see [04-provenance.md](./04-provenance.md) |
+| 6 | **SELECTED WORKS** | Track list with language per track (msg 3) |
+| 7 | **ABOUT TATJANIZZA** | Berlin-based bio |
+| 8 | **Provenance footer** | Credits block — see [04-provenance.md](./04-provenance.md) |
+
+Section order for SELECTED WORKS is my placement, not stated — it sits after the
+conceptual sections and before the bio. Move it up if the music should come sooner.
 
 The msg-1 idea of a separate "Project history — Berlin, 2026" section is now absorbed
 into **ORIGINS** + **ABOUT TATJANIZZA**. No separate section needed.
@@ -36,5 +40,8 @@ into **ORIGINS** + **ABOUT TATJANIZZA**. No separate section needed.
 Site runs on TinaCMS + Next.js on Vercel at `www.tatjanizza.com` (see [CLAUDE.md](../../CLAUDE.md)),
 so the msg-1 platform options (Carrd / Squarespace / WordPress.com) are superseded.
 
-Blocks needed for the project page: a prose/rich-text block and a dated-timeline block.
-ORIGINS is the only section that is not plain prose.
+Blocks needed for the project page:
+
+- prose / rich-text block (most sections)
+- dated-timeline block (ORIGINS)
+- track-list block (SELECTED WORKS) — title, language, optional gloss, streaming link

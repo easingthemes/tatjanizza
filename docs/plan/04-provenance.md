@@ -33,18 +33,21 @@ Wherever *Prisustvo* was published, that URL/timestamp should be linked from the
 
 ## Per-song timeline
 
-Known from msg 2 (first releases, 18 May 2026):
+From msg 2 (first releases, 18 May 2026) and msg 3 (SELECTED WORKS):
 
 | # | Title | Language | Release date | Notes |
 | --- | --- | --- | --- | --- |
-| 1 | Dva miliona godina | Sumerian | 18 May 2026 | title track |
+| 1 | Dva miliona godina | Sumerian | 18 May 2026 | title track — *"Deep time. The central premise of the project."* |
 | 2 | Šta bi ga ti znao? | Hebrew | 18 May 2026 | |
 | 3 | Izgleda | Old / Ancient Greek | 18 May 2026 | |
-| 4 | Palo Alto | — | 18 May 2026 | deliberate arrival at the present |
-| … | *remaining tracks TBD* | | | Akkadian and Sanskrit tracks not yet listed |
+| 4 | Tačna kao kod | Sanskrit | ? | added in msg 3 — not in the 18 May list, date unknown |
+| 5 | Palo Alto | — | 18 May 2026 | *"The historical journey reaches the technological present."* |
 
-Msg 2 says "including", so this list is partial. Full list + exact dates still needed
-from DistroKid.
+Msg 2 said "including", so this is still selected works, not the complete catalogue.
+Full list + exact per-track dates still needed from DistroKid.
+
+**No Akkadian track yet** — the language is named in the statement (LANGUAGE AS TIME)
+but has no work attached to it.
 
 ## Framing
 
