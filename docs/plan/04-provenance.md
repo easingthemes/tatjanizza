@@ -49,7 +49,7 @@ which historical language surfaces within it.
 | 3 | Izgleda | Serbian | Ancient Greek | 18 May 2026 | *"Old Greek"* in msg 3 |
 | 4 | Tačna kao kod | Serbian | Sanskrit | **6 July 2026** | date from msg 4 |
 | 5 | Palo Alto | Serbian (?) | — | 18 May 2026 | *"The historical journey reaches the technological present."* |
-| 6 | Two Million Years (Akkadian) | **English** | Akkadian | ? | 4:34; confirmed from Spotify screenshot, msg 5 |
+| 6 | Two Million Years (Akkadian) | **English** (+ Serbian closing line) | Akkadian | ? | 4:34; [lyrics](./lyrics/two-million-years-akkadian.md) |
 
 Song-language values for rows 1–5 are inferred from the Serbian titles — confirm each one.
 Msg 2 said "including" and msg 3 is "selected works", so this is not yet the complete

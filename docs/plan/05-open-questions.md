@@ -30,6 +30,14 @@ Msg 4 answered the first three. The rest are explicitly deferred by Tatjanizza �
 - [ ] Export the full DistroKid release list — every track, every date
 - [ ] Confirm which track was genuinely first if they did not all drop together
 
+## Lyrics (msg 6)
+
+- [ ] Do lyrics go on the site? Separate decision from the project page
+- [ ] Keep or strip the stage directions (`[low chant — Akkadian]`, `(deep pulse enters)`)?
+- [ ] Akkadian glossary — translations of *EA, ina agî, ultu qereb, šattu ana šatti,
+      qurbūtu, qarābu*. Do not guess these, ask her
+- [ ] Remaining five song texts
+
 ## Design / build
 
 - [ ] Home image / cover
