@@ -12,6 +12,7 @@ by Tatjanizza. Files are updated as new messages come in.
 | [04-provenance.md](./04-provenance.md) | Credits block, per-song timeline |
 | [05-open-questions.md](./05-open-questions.md) | Blockers and next steps |
 | [06-site-copy.md](./06-site-copy.md) | **Written site copy, verbatim** — the text to publish |
+| [lyrics/](./lyrics/) | Song texts, verbatim, one file per track |
 
 **Rule:** new messages get appended verbatim to `00-raw-messages.md` first,
 then the derived files are updated.

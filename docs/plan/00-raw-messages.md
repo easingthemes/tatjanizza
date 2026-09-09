@@ -107,3 +107,13 @@ This corrects a wrong assumption in the earlier notes. The facts:
 - Track titles carry the ancient language as a suffix, e.g. *Two Million Years (Akkadian)*.
 - **There is an album** called *Two Million Years* (2026), so the work is an album,
   not a set of loose singles.
+
+---
+
+## Message 6 — lyrics, *Two Million Years (Akkadian)*
+
+Full song text. Stored verbatim in
+[lyrics/two-million-years-akkadian.md](./lyrics/two-million-years-akkadian.md).
+
+It confirms msg 5 in practice: English body, Akkadian as chant/whisper layers,
+and a Serbian line to close — *Bliže njemu.*
