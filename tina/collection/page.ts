@@ -7,6 +7,11 @@ import { videoBlockSchema } from '@/components/blocks/video';
 import { calloutBlockSchema } from '@/components/blocks/callout';
 import { statsBlockSchema } from '@/components/blocks/stats';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { tzHeroBlockSchema } from '@/components/blocks/tz-hero';
+import { tzProseBlockSchema } from '@/components/blocks/tz-prose';
+import { tzTimelineBlockSchema } from '@/components/blocks/tz-timeline';
+import { tzTracksBlockSchema } from '@/components/blocks/tz-tracks';
+import { tzCreditsBlockSchema } from '@/components/blocks/tz-credits';
 
 const Page: Collection = {
   label: 'Pages',
@@ -32,6 +37,11 @@ const Page: Collection = {
         visualSelector: true,
       },
       templates: [
+        tzHeroBlockSchema,
+        tzProseBlockSchema,
+        tzTimelineBlockSchema,
+        tzTracksBlockSchema,
+        tzCreditsBlockSchema,
         heroBlockSchema,
         calloutBlockSchema,
         featureBlockSchema,

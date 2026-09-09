@@ -8,6 +8,11 @@ import { Video } from "./video";
 import { Callout } from "./callout";
 import { Stats } from "./stats";
 import { CallToAction } from "./call-to-action";
+import { TzHero } from "./tz-hero";
+import { TzProse } from "./tz-prose";
+import { TzTimeline } from "./tz-timeline";
+import { TzTracks } from "./tz-tracks";
+import { TzCredits } from "./tz-credits";
 
 export const Blocks = (props: Omit<Page, "id" | "_sys" | "_values">) => {
   if (!props.blocks) return null;
@@ -42,6 +47,16 @@ const Block = (block: PageBlocks) => {
       return <Testimonial data={block} />;
     case "PageBlocksCta":
       return <CallToAction data={block} />;
+    case "PageBlocksTzHero":
+      return <TzHero data={block} />;
+    case "PageBlocksTzProse":
+      return <TzProse data={block} />;
+    case "PageBlocksTzTimeline":
+      return <TzTimeline data={block} />;
+    case "PageBlocksTzTracks":
+      return <TzTracks data={block} />;
+    case "PageBlocksTzCredits":
+      return <TzCredits data={block} />;
     default:
       return null;
   }

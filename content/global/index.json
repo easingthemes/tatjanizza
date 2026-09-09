@@ -13,12 +13,12 @@
         "label": "Home"
       },
       {
-        "href": "/about",
-        "label": "About"
+        "href": "/two-million-years",
+        "label": "Two Million Years"
       },
       {
         "href": "/posts",
-        "label": "Blog"
+        "label": "Writing"
       }
     ]
   },

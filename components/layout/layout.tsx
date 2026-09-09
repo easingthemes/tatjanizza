@@ -1,9 +1,8 @@
 import React, { PropsWithChildren } from "react";
 import { LayoutProvider } from "./layout-context";
 import client from "../../tina/__generated__/client";
-// TEMPORARY: hidden while the site shows the coming-soon splash.
-// import { Header } from "./nav/header";
-// import { Footer } from "./nav/footer";
+import { Header } from "./nav/header";
+import { Footer } from "./nav/footer";
 
 type LayoutProps = PropsWithChildren & {
   rawPageData?: any;
@@ -24,11 +23,11 @@ export default async function Layout({ children, rawPageData }: LayoutProps) {
 
   return (
     <LayoutProvider globalSettings={globalData.global} pageData={rawPageData}>
-      {/* <Header /> */}
-      <main className="overflow-x-hidden">
+      <Header />
+      <main className="overflow-x-hidden pt-20">
         {children}
       </main>
-      {/* <Footer /> */}
+      <Footer />
     </LayoutProvider>
   );
 }
