@@ -1,33 +1,38 @@
-# Artist statement — brief
+# Artist statement — brief & status
 
-Source: [00-raw-messages.md](./00-raw-messages.md), message 1.
+Sources: [00-raw-messages.md](./00-raw-messages.md) msg 1, [06-site-copy.md](./06-site-copy.md) msg 2.
 
-- Length: **500–800 words**
-- Style: normal, beautiful prose. An artist statement, not keyword soup.
-- It must *naturally* contain the concepts a future search needs to connect:
+## Status: **written** ✅
 
-| Concept | Note |
-| --- | --- |
-| Tatjanizza | artist name |
-| 2026 | year of the work |
-| generative AI music | the method |
-| concept album | the form |
-| human–AI relationship | the subject |
-| two million years | the title / span |
-| Akkadian | language used |
-| Hebrew | language used |
-| Sanskrit | language used |
-| Ancient Greek | language used |
-| other languages | to be listed exactly |
-| languages as historical dramaturgy | the idea — „jezici kao istorijska dramaturgija“ |
+Message 2 delivered the statement, split across sections rather than as one block:
+TWO MILLION YEARS + THE IDEA + LANGUAGE AS TIME + WHEN THE WORK FOUND ITS MEDIUM
++ ABOUT TATJANIZZA. Roughly 700 words total — inside the 500–800 target from msg 1.
 
-## Explicit anti-pattern
+Tone rules from msg 1 are respected: no keyword lists, no "first in the world".
 
-> „ne SEO bljuvotinu ‚AI MUSIC ANCIENT AI AKKADIAN AI'“
+## Concept coverage check
 
-Terms appear because the text is about them, never as a list.
+Terms msg 1 said search must connect, and where msg 2 covers them:
 
-## Status
+| Concept | Covered | Where |
+| --- | --- | --- |
+| Tatjanizza | ✅ | everywhere |
+| 2026 | ✅ | TWO MILLION YEARS, ORIGINS |
+| generative AI music | ✅ | HOME, THE IDEA, MEDIUM |
+| concept album | ⚠️ | says "conceptual music project" — the phrase *concept album* never appears |
+| human–AI relationship | ✅ | THE IDEA, MEDIUM |
+| two million years | ✅ | title, throughout |
+| Sumerian | ✅ | TWO MILLION YEARS, LANGUAGE AS TIME (new — not in msg 1) |
+| Akkadian | ✅ | TWO MILLION YEARS, LANGUAGE AS TIME |
+| Hebrew | ✅ | same + ORIGINS track list |
+| Sanskrit | ✅ | same |
+| Ancient Greek | ✅ | same ("Old Greek" in track list) |
+| other languages | ⚠️ | referred to as "later languages", never named |
+| languages as historical dramaturgy | ✅ | LANGUAGE AS TIME, whole section |
 
-Not written yet. Blocked on the exact language list and the chronology
-(see [05-open-questions.md](./05-open-questions.md)).
+Two soft gaps only — see [05-open-questions.md](./05-open-questions.md).
+
+## Terminology note
+
+Msg 2 introduces **"AI-native"** as the self-description. Worth using consistently
+across meta description, OG tags and any press text.
