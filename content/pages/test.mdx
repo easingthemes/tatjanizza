@@ -1,0 +1,45 @@
+---
+title: Test Page
+blocks:
+  - background: bg-yellow-50/80
+    headline: Test strana
+    tagline: Demo sadržaj za QA pregled
+    actions:
+      - label: Nazad na početnu
+        type: button
+        icon:
+          name: Tina
+          color: white
+        link: /
+      - label: Pogledaj blog
+        type: link
+        link: /posts
+    image:
+      src: ''
+      alt: Test page placeholder
+    _template: hero
+  - background: ''
+    text: Ovo je test strana — koristi se samo za proveru deploya.
+    url: /test
+    _template: callout
+  - background: bg-zinc-50
+    title: Brojke (demo)
+    description: Placeholder statistika, sluzi samo da se vidi da blok radi.
+    stats:
+      - stat: '42'
+        type: Demo vrednost
+      - stat: '7'
+        type: Test blokova
+      - stat: '100%'
+        type: Lorem ipsum
+    _template: stats
+  - body: "## Demo tekst\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\nOva strana postoji samo da bi se testirao deploy i editovanje kroz `/admin`. Slobodno menjaj ili obriši.\n\n### Šta se ovde testira\n\n* da li se nova strana pojavi na ruti `/test`\n* da li klik-za-izmenu radi u Tina admin panelu\n* da li preview build na Vercelu prolazi\n\n> Ovo je citat blok, isto demo.\n\nUt enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.\n"
+    _template: content
+  - title: Kraj test strane
+    description: Ako vidiš ovaj blok, sve je uredno izrenderovano.
+    actions:
+      - label: Početna
+        type: button
+        link: /
+    _template: cta
+---
