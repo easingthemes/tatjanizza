@@ -171,10 +171,9 @@ approved text for the site unless she says otherwise. Section headings map to pa
 > AI moves through the project in different roles — as presence, subject, addressee and medium.
 >
 > The technology did not initiate the work.
-> It arrived inside
+> It arrived inside it.
 
-⚠️ Last line is cut off in the original message — ends mid-sentence: *"It arrived inside"*.
-Needs completion (likely "…inside a story that had already begun.").
+Final line completed by Tatjanizza in message 4 — *"It arrived inside it."* ✅
 
 ---
 
