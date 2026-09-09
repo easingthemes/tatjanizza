@@ -89,3 +89,21 @@ Reading:
 
 Remaining questions (5 Prisustvo link, 6 album/EP, 7 later languages, 8 cover, 9 Serbian
 version, 10 section order) explicitly deferred: „Ostalo ćemo popravljati usput.“
+
+---
+
+## Message 5 — how the languages actually work (correction)
+
+Sent with a Spotify screenshot of the track *Two Million Years (Akkadian)* —
+Tatjanizza • album **Two Million Years** • 2026 • 4:34.
+
+> Sve su pesme srpski ili engleski, ostali jezici su samo delovi u pesmama, npr ova je na engleskom, ali akadski su delovi u njoj, refren is slicno.
+
+This corrects a wrong assumption in the earlier notes. The facts:
+
+- **Every song is in Serbian or English.** That is the base language of each track.
+- **The ancient languages appear as parts inside a song** — chorus and similar — not as
+  whole tracks and not as translations.
+- Track titles carry the ancient language as a suffix, e.g. *Two Million Years (Akkadian)*.
+- **There is an album** called *Two Million Years* (2026), so the work is an album,
+  not a set of loose singles.
