@@ -1,27 +1,34 @@
 # Open questions & next steps
 
-Source: [00-raw-messages.md](./00-raw-messages.md), message 1.
+Sources: [00-raw-messages.md](./00-raw-messages.md) msg 1, [06-site-copy.md](./06-site-copy.md) msg 2.
 
-## Blocker — do this before writing anything
+## Content gaps in the delivered copy
 
-> „Ali postoji jedna stvar koju bih uradio pre nego što išta napišemo.“
+- [ ] **Truncated sentence.** WHEN THE WORK FOUND ITS MEDIUM ends mid-sentence:
+      *"The technology did not initiate the work. It arrived inside"* — needs the ending.
+- [ ] **Full track list.** Msg 2 lists 4 tracks "including" — where are the Akkadian and
+      Sanskrit tracks? Which release are they on?
+- [ ] **"Later languages"** are never named. Name them, or leave deliberately open?
+- [ ] The phrase **"concept album"** (msg 1 wanted it findable) never appears — msg 2 says
+      "conceptual music project". Add the album framing somewhere, or drop that keyword?
+- [ ] **Prisustvo link.** Where was it published on 8 Sep 2025? That URL is provenance.
 
-Pull the **real Spotify / DistroKid data** and build the exact chronology. No guessing
-(„bez mog nagađanja ‚jun/jul'“).
+## Verification (msg 1's blocker — still open)
 
-- [ ] Which song from this project was published publicly **first**, and on what exact date?
-- [ ] Then: the album / EP — exact date?
-- [ ] All remaining releases with exact dates
-- [ ] Export raw data from DistroKid (release dates) and Spotify for Artists
+- [ ] Confirm 18 May 2026 as the exact first public release date against DistroKid
+- [ ] Export the full DistroKid release list — every track, every date
+- [ ] Confirm which track was genuinely first if they did not all drop together
 
-## Other open items
+## Design / build
 
-- [ ] Full list of languages used (beyond Akkadian, Hebrew, Sanskrit, Ancient Greek)
-- [ ] Which image / cover goes on home
-- [ ] The one-sentence bio for home
-- [ ] Is the project page URL `/two-million-years` or `/archive`?
+- [ ] Home image / cover
+- [ ] Project page URL — `/two-million-years`?
+- [ ] Serbian version of the page? Msg 2 is English but titles are bilingual
+- [ ] Tina blocks needed: prose block + dated-timeline block for ORIGINS
 
-## Already settled
+## Settled
 
-- Domain: `tatjanizza.com` — artist-scoped, not album-scoped ✅ (live as `www.tatjanizza.com`)
-- Platform: Next.js + TinaCMS on Vercel — supersedes the Carrd/Squarespace/WordPress option
+- Domain `tatjanizza.com`, artist-scoped ✅ (live as `www.tatjanizza.com`)
+- Platform: Next.js + TinaCMS on Vercel — supersedes Carrd/Squarespace/WordPress
+- Site copy written (msg 2) — see [06-site-copy.md](./06-site-copy.md)
+- Chronology 2025→2026 established — see [04-provenance.md](./04-provenance.md)

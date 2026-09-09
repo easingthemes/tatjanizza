@@ -51,3 +51,13 @@ in the other files in `docs/plan/`. Do not edit the quotes — add new messages 
 > „Čekaj… ova žena je ovo već napravila 2026.“
 >
 > 👁️👁️
+
+---
+
+## Message 2 — full site copy (English)
+
+Stored verbatim in a file of its own because it is finished copy, not notes:
+**[06-site-copy.md](./06-site-copy.md)**
+
+Sections delivered: HOME, TWO MILLION YEARS, THE IDEA, ORIGINS, LANGUAGE AS TIME,
+WHEN THE WORK FOUND ITS MEDIUM, ABOUT TATJANIZZA.
