@@ -121,3 +121,134 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Tatjanizza — Two Million Years
+   Deep time, mysticism and code. Near-black warmed toward umber, gold hairlines,
+   an ember glow behind everything, monospace for the machine layer and a serif
+   for the human one.
+   --------------------------------------------------------------------------- */
+
+:root {
+  --tz-void: oklch(0.15 0.018 46);
+  --tz-void-deep: oklch(0.11 0.014 44);
+  --tz-ember: oklch(0.62 0.166 44);
+  --tz-gold: oklch(0.79 0.128 76);
+  --tz-gold-dim: oklch(0.62 0.079 74);
+  --tz-parchment: oklch(0.93 0.021 78);
+  --tz-muted: oklch(0.68 0.026 66);
+  --tz-rule: oklch(0.79 0.128 76 / 22%);
+  --tz-rule-soft: oklch(0.79 0.128 76 / 10%);
+}
+
+/* The site is dark throughout, so the shadcn tokens are re-pointed at the palette
+   above rather than patched per component. Declared after :root so these win. */
+:root {
+  --background: var(--tz-void);
+  --foreground: var(--tz-parchment);
+  --card: var(--tz-void-deep);
+  --card-foreground: var(--tz-parchment);
+  --popover: var(--tz-void-deep);
+  --popover-foreground: var(--tz-parchment);
+  --primary: var(--tz-gold);
+  --primary-foreground: var(--tz-void);
+  --secondary: oklch(0.22 0.022 46);
+  --secondary-foreground: var(--tz-parchment);
+  --muted: oklch(0.22 0.022 46);
+  --muted-foreground: var(--tz-muted);
+  --accent: oklch(0.24 0.03 46);
+  --accent-foreground: var(--tz-gold);
+  --border: var(--tz-rule-soft);
+  --input: var(--tz-rule);
+  --ring: var(--tz-gold-dim);
+}
+
+.tz {
+  background-color: var(--tz-void);
+  color: var(--tz-parchment);
+  font-family: var(--font-lato), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Ember light, as in the covers: a low sun behind the stones. */
+.tz-glow {
+  position: relative;
+  isolation: isolate;
+}
+.tz-glow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(90ch 60ch at 50% -10%, oklch(0.62 0.166 44 / 26%), transparent 70%),
+    radial-gradient(70ch 50ch at 85% 15%, oklch(0.79 0.128 76 / 10%), transparent 65%);
+}
+
+.tz-display {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.06;
+}
+
+/* The machine layer: HUD labels, dates, languages, credits. */
+.tz-mono {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--tz-gold-dim);
+}
+
+.tz-rule {
+  border-color: var(--tz-rule);
+}
+
+/* Poetry and statement prose — wide leading, never full-width. */
+.tz-prose {
+  font-family: var(--font-serif), ui-serif, Georgia, serif;
+  font-size: clamp(1.0625rem, 0.55vw + 0.94rem, 1.3125rem);
+  line-height: 1.75;
+  color: oklch(0.9 0.02 76);
+}
+.tz-prose p {
+  margin-block: 1.15em;
+  max-width: 62ch;
+}
+.tz-prose p:first-child {
+  margin-block-start: 0;
+}
+.tz-prose em {
+  color: var(--tz-gold);
+  font-style: italic;
+}
+.tz-prose strong {
+  color: var(--tz-parchment);
+  font-weight: 600;
+}
+.tz-prose a {
+  color: var(--tz-gold);
+  text-underline-offset: 0.25em;
+  text-decoration-color: var(--tz-rule);
+}
+.tz-prose a:hover {
+  text-decoration-color: var(--tz-gold);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .tz-rise {
+    animation: tz-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+}
+
+@keyframes tz-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

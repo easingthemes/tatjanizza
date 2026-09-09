@@ -1,6 +1,12 @@
 import React from "react";
 import { Metadata } from "next";
-import { Inter as FontSans, Lato, Nunito } from "next/font/google";
+import {
+  Inter as FontSans,
+  Lato,
+  Nunito,
+  Cormorant_Garamond,
+  JetBrains_Mono,
+} from "next/font/google";
 import { cn } from "@/lib/utils";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
@@ -22,6 +28,21 @@ const lato = Lato({
   subsets: ["latin"],
   variable: "--font-lato",
   weight: "400",
+});
+
+// Display serif for the poetry and the statement — the human layer.
+const fontSerif = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+// Monospace for dates, languages and credits — the machine layer.
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
 });
 
 const SITE_NAME = "Tatjanizza";
@@ -74,8 +95,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(fontSans.variable, nunito.variable, lato.variable)}>
-      <body className="min-h-screen bg-background font-sans antialiased">
+    <html
+      lang="en"
+      className={cn(
+        fontSans.variable,
+        nunito.variable,
+        lato.variable,
+        fontSerif.variable,
+        fontMono.variable,
+      )}
+    >
+      <body className="tz min-h-screen antialiased">
         <VideoDialogProvider>
           {children}
           <VideoDialog />
