@@ -19,7 +19,7 @@ Terms msg 1 said search must connect, and where msg 2 covers them:
 | Tatjanizza | ✅ | everywhere |
 | 2026 | ✅ | TWO MILLION YEARS, ORIGINS |
 | generative AI music | ✅ | HOME, THE IDEA, MEDIUM |
-| concept album | ⚠️ | says "conceptual music project" — the phrase *concept album* never appears |
+| concept album | ⚠️ | says "conceptual music project". Msg 5 confirms there *is* an album (*Two Million Years*, 2026), so the phrase can be used honestly — decide where |
 | human–AI relationship | ✅ | THE IDEA, MEDIUM |
 | two million years | ✅ | title, throughout |
 | Sumerian | ✅ | TWO MILLION YEARS, LANGUAGE AS TIME (new — not in msg 1) |

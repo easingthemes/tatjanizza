@@ -154,6 +154,11 @@ approved text for the site unless she says otherwise. Section headings map to pa
 >
 > The listener is moving through time.
 
+✅ This section stays accurate under msg 5 — it never claims whole songs are in the
+ancient languages, and *"not one song repeatedly translated"* is literally true.
+Consider adding one sentence making the actual mechanic explicit, e.g. that the older
+language surfaces inside the song rather than replacing it. Optional, ask first.
+
 ---
 
 ## WHEN THE WORK FOUND ITS MEDIUM
@@ -197,6 +202,19 @@ Delivered as message 3.
 
 Only the first and last track carry a gloss — that asymmetry looks intentional
 (the two ends of the arc), keep it unless told otherwise.
+
+⚠️ **Needs a wording fix (msg 5).** `Dva miliona godina — Sumerian` reads as if the song
+is *in* Sumerian. It is not: every song is in Serbian or English, and the ancient language
+appears as parts inside the track (chorus and similar). The dash form is misleading here.
+
+Suggested fixes, pick one:
+
+- keep the dash but make the header explicit: *"Each track carries a historical language
+  inside it"* above the list;
+- or match the Spotify titles, which already solve it: *Two Million Years (Akkadian)*;
+- or a second column: **Title · Sung in · Ancient layer**.
+
+Also missing from this list: *Two Million Years (Akkadian)* — English, 4:34.
 
 ---
 

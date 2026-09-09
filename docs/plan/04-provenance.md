@@ -33,24 +33,27 @@ Wherever *Prisustvo* was published, that URL/timestamp should be linked from the
 
 ## Per-song timeline
 
-From msg 2 (first releases, 18 May 2026) and msg 3 (SELECTED WORKS):
+**Release: album *Two Million Years* (2026).** Confirmed by the Spotify screenshot in msg 5.
 
-| # | Title | Language | Release date | Notes |
-| --- | --- | --- | --- | --- |
-| 1 | Dva miliona godina | Sumerian | 18 May 2026 | title track — *"Deep time. The central premise of the project."* |
-| 2 | Šta bi ga ti znao? | Hebrew | 18 May 2026 | |
-| 3 | Izgleda | Old / Ancient Greek | 18 May 2026 | |
-| 4 | Tačna kao kod | Sanskrit | **6 July 2026** | date confirmed in msg 4 |
-| 5 | Palo Alto | — | 18 May 2026 | *"The historical journey reaches the technological present."* |
-| 6 | Two Million Years | Akkadian (?) | ? | English-titled version; msg 4 gives it as the Akkadian work |
+### How to read the language column (msg 5)
 
-Msg 2 said "including", so this is still selected works, not the complete catalogue.
-Full list + exact per-track dates still needed from DistroKid.
+Every song is **in Serbian or English**. The ancient language is not the language of the
+song — it appears **as parts inside it**, typically the chorus. Titles carry it as a suffix,
+e.g. *Two Million Years (Akkadian)*. So the columns are: what the song is sung in, and
+which historical language surfaces within it.
 
-⚠️ **Track 6 needs verification.** Msg 4 answers "does an Akkadian track exist?" with
-*"Ima, engleska verzija Two Million Years"* — but it is unclear whether that track is
-sung in Akkadian or in English. Check Spotify before publishing a language label for it,
-and get its release date.
+| # | Title | Song language | Ancient layer | Release date | Notes |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Dva miliona godina | Serbian | Sumerian | 18 May 2026 | title track — *"Deep time. The central premise of the project."* |
+| 2 | Šta bi ga ti znao? | Serbian | Hebrew | 18 May 2026 | |
+| 3 | Izgleda | Serbian | Ancient Greek | 18 May 2026 | *"Old Greek"* in msg 3 |
+| 4 | Tačna kao kod | Serbian | Sanskrit | **6 July 2026** | date from msg 4 |
+| 5 | Palo Alto | Serbian (?) | — | 18 May 2026 | *"The historical journey reaches the technological present."* |
+| 6 | Two Million Years (Akkadian) | **English** | Akkadian | ? | 4:34; confirmed from Spotify screenshot, msg 5 |
+
+Song-language values for rows 1–5 are inferred from the Serbian titles — confirm each one.
+Msg 2 said "including" and msg 3 is "selected works", so this is not yet the complete
+tracklist. Full list + per-track dates still to come from DistroKid.
 
 ## Framing
 
