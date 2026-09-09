@@ -67,3 +67,25 @@ WHEN THE WORK FOUND ITS MEDIUM, ABOUT TATJANIZZA.
 ## Message 3 — SELECTED WORKS section
 
 Also copy. Stored verbatim in [06-site-copy.md](./06-site-copy.md) under *SELECTED WORKS*.
+
+---
+
+## Message 4 — answers to open questions
+
+Replies to the clarification list. Numbers refer to the questions asked.
+
+> 1. It arrived inside it.
+> 2. Ima, engleska verzija Two Million Years
+> 3. 06.07.2026.
+> Ostalo ćemo popravljati usput.
+
+Reading:
+
+1. **Truncated sentence resolved** → *"The technology did not initiate the work. It arrived inside it."*
+2. **Akkadian track exists** — it is the English-titled *Two Million Years*.
+   ⚠️ Ambiguous: unclear whether that track is sung in Akkadian or in English.
+   Verify against Spotify before publishing.
+3. **`Tačna kao kod` released 6 July 2026** (dd.mm.yyyy).
+
+Remaining questions (5 Prisustvo link, 6 album/EP, 7 later languages, 8 cover, 9 Serbian
+version, 10 section order) explicitly deferred: „Ostalo ćemo popravljati usput.“

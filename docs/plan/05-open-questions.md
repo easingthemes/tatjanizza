@@ -1,15 +1,18 @@
 # Open questions & next steps
 
-Sources: [00-raw-messages.md](./00-raw-messages.md) msg 1, [06-site-copy.md](./06-site-copy.md) msg 2.
+Sources: [00-raw-messages.md](./00-raw-messages.md) msgs 1–4, [06-site-copy.md](./06-site-copy.md).
+
+Msg 4 answered the first three. The rest are explicitly deferred by Tatjanizza —
+„Ostalo ćemo popravljati usput.“ — so nothing here blocks a first build.
 
 ## Content gaps in the delivered copy
 
-- [ ] **Truncated sentence.** WHEN THE WORK FOUND ITS MEDIUM ends mid-sentence:
-      *"The technology did not initiate the work. It arrived inside"* — needs the ending.
-- [ ] **Akkadian has no track.** Msg 3 added the Sanskrit one (*Tačna kao kod*), so
-      Akkadian is the only language named in the statement with no work attached.
-      Does a track exist, or should the statement stop naming it?
-- [ ] **Release date for *Tačna kao kod*** — not in the 18 May 2026 list from msg 2.
+- [x] ~~Truncated sentence~~ → *"It arrived inside it."* (msg 4)
+- [x] ~~Akkadian has no track~~ → it exists, the English-titled *Two Million Years* (msg 4)
+- [x] ~~Release date for *Tačna kao kod*~~ → **6 July 2026** (msg 4)
+- [ ] **Is the Akkadian track actually in Akkadian?** Msg 4 calls it "engleska verzija
+      Two Million Years", which reads like an English version. Check Spotify.
+- [ ] **Add the Akkadian track to SELECTED WORKS** — copy in msg 3 does not list it.
 - [ ] **Full catalogue** — msg 3 is "selected works", msg 2 said "including".
 - [ ] **"Later languages"** are never named. Name them, or leave deliberately open?
 - [ ] The phrase **"concept album"** (msg 1 wanted it findable) never appears — msg 2 says
