@@ -6,8 +6,11 @@ Sources: [00-raw-messages.md](./00-raw-messages.md) msg 1, [06-site-copy.md](./0
 
 - [ ] **Truncated sentence.** WHEN THE WORK FOUND ITS MEDIUM ends mid-sentence:
       *"The technology did not initiate the work. It arrived inside"* — needs the ending.
-- [ ] **Full track list.** Msg 2 lists 4 tracks "including" — where are the Akkadian and
-      Sanskrit tracks? Which release are they on?
+- [ ] **Akkadian has no track.** Msg 3 added the Sanskrit one (*Tačna kao kod*), so
+      Akkadian is the only language named in the statement with no work attached.
+      Does a track exist, or should the statement stop naming it?
+- [ ] **Release date for *Tačna kao kod*** — not in the 18 May 2026 list from msg 2.
+- [ ] **Full catalogue** — msg 3 is "selected works", msg 2 said "including".
 - [ ] **"Later languages"** are never named. Name them, or leave deliberately open?
 - [ ] The phrase **"concept album"** (msg 1 wanted it findable) never appears — msg 2 says
       "conceptual music project". Add the album framing somewhere, or drop that keyword?

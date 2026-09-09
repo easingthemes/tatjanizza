@@ -178,6 +178,29 @@ Needs completion (likely "…inside a story that had already begun.").
 
 ---
 
+## SELECTED WORKS
+
+Delivered as message 3.
+
+> **SELECTED WORKS**
+>
+> Dva miliona godina — Sumerian
+> Deep time. The central premise of the project.
+>
+> Šta bi ga ti znao? — Hebrew
+>
+> Izgleda — Old Greek
+>
+> Tačna kao kod — Sanskrit
+>
+> Palo Alto
+> The historical journey reaches the technological present.
+
+Only the first and last track carry a gloss — that asymmetry looks intentional
+(the two ends of the arc), keep it unless told otherwise.
+
+---
+
 ## ABOUT TATJANIZZA
 
 > **ABOUT TATJANIZZA**

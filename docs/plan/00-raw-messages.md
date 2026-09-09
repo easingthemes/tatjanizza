@@ -61,3 +61,9 @@ Stored verbatim in a file of its own because it is finished copy, not notes:
 
 Sections delivered: HOME, TWO MILLION YEARS, THE IDEA, ORIGINS, LANGUAGE AS TIME,
 WHEN THE WORK FOUND ITS MEDIUM, ABOUT TATJANIZZA.
+
+---
+
+## Message 3 — SELECTED WORKS section
+
+Also copy. Stored verbatim in [06-site-copy.md](./06-site-copy.md) under *SELECTED WORKS*.
