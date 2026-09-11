@@ -44,6 +44,16 @@ are deliberately off, so unused imports won't fail the build.
 
 ## Committing
 
+**Check before you push.** There is no CI, so nothing catches a broken build except you:
+
+```bash
+./scripts/preflight.sh   # 0 = safe to push, 1 = do not push
+```
+
+It installs, lints and runs the same build Vercel runs, including a prerender of every page. No
+TinaCloud credentials needed — it builds against the local `content/` files via
+`tinacms build --local`, and everything it generates is gitignored. Takes 2-4 minutes.
+
 **`main` deploys straight to production.** There's no staging environment and no CI gate — a push to
 `main` is a live deploy to www.tatjanizza.com. For anything non-trivial, branch and let Vercel build
 a preview first:
