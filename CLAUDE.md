@@ -75,7 +75,9 @@ Schema co-location is the core convention here: Tina schemas import from `compon
 
 ## Deployment
 
-Hosted on **Vercel**, auto-deployed from `main` in [easingthemes/tatjanizza](https://github.com/easingthemes/tatjanizza). There is no `.github/workflows/` directory and none is needed — Vercel builds on push.
+Hosted on **Vercel**, auto-deployed from `main` in [easingthemes/tatjanizza](https://github.com/easingthemes/tatjanizza). There is no `.github/workflows/` directory and none is needed — Vercel builds on push. The project is `tatjanizza` in the Vercel team `kaidx` (Hobby plan); a build takes ~1–3 min, so a pushed change is not live immediately.
+
+Every branch gets a public preview at `https://tatjanizza-git-<branch>-kaidx.vercel.app` (slashes in the branch name become dashes; long names are truncated with a hash). Deployment protection is off — previews need no Vercel login. See [CONTRIBUTING.md](./CONTRIBUTING.md#previews).
 
 Production is `www.tatjanizza.com`; the apex `tatjanizza.com` 308-redirects to it, and `tatjanizza.vercel.app` remains as an alias. DNS is at DreamHost, not Vercel's nameservers.
 

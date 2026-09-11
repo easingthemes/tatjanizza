@@ -72,6 +72,11 @@ production deploy — there is no CI workflow in this repo and no manual step.
 | Production | https://www.tatjanizza.com |
 | Apex | `tatjanizza.com` — 308-redirects to `www` |
 | Vercel alias | https://tatjanizza.vercel.app |
+| Vercel project | `tatjanizza`, in the team **kaidx** (*vebkurs-5678's projects*) |
+
+A push is not instant: Vercel needs roughly **one to three minutes** to build before the new version
+is served. Every branch gets its own preview deployment — see
+[CONTRIBUTING.md](./CONTRIBUTING.md#previews) for the URL pattern.
 
 DNS stays at **DreamHost** (nameservers `ns1`–`ns3.dreamhost.com`) rather than moving to Vercel's,
 using an `A` record on the apex and a `CNAME` on `www` pointing at the project's Vercel target.
