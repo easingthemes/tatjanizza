@@ -12,10 +12,21 @@ Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow 
 `main` deploys straight to production and there is no CI gate, so the only thing standing between a bad commit and a red deploy is a local check. Run it before every push, on any branch:
 
 ```bash
-./scripts/preflight.sh   # 0 = safe to push, 1 = do not push
+./scripts/preflight.sh   # 0 = safe, 1 = the change is broken, 2 = the machine is dirty
 ```
 
+Exit 2 means the check could not run here — a leftover process on a port, a full disk — and says **nothing** about the change. Do not push on a 2; nothing was verified. The script picks free ports itself, because Tina's default 4001 is also `pnpm dev`'s, and when it is taken Tina does not say so: it prints "server listening", the client then talks to whatever is squatting there, and the build dies with `HeadersTimeoutError` and "Failed to collect page data".
+
 It installs deps, lints, then runs the same build Vercel runs — schema validation, typecheck and a prerender of every page. **No TinaCloud credentials are needed**: `tinacms build --local` starts a GraphQL server over `content/` and generates a client pointed at it, which is enough for `next build`. Everything it writes (`tina/__generated__/`, `public/admin/index.html`) is gitignored, so the working tree stays clean. `NODE_ENV=production` is set explicitly inside the script — without it Next prerenders `/404` with the dev pages runtime and dies on `<Html> should not be imported outside of pages/_document`, an error that has nothing to do with your change.
+
+## Other people push while you work
+
+Dragan, Tatjanizza's sessions and other Claude sessions all push to this repo, sometimes to the same branch, at the same time. A rejected push is routine, not a fault.
+
+- `git fetch` and merge before you start and again before you push.
+- **Never rebase or force-push a shared branch** — someone may have it checked out. A merge commit is the right answer here.
+- After merging, **re-run `./scripts/preflight.sh`**. The merged tree is not the tree you checked, and the other side may have deleted content your change depends on.
+- Read both sides of a conflict before resolving. Keep both changes unless they genuinely contradict.
 
 ## Commands
 
