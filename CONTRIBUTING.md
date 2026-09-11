@@ -47,8 +47,10 @@ are deliberately off, so unused imports won't fail the build.
 **Check before you push.** There is no CI, so nothing catches a broken build except you:
 
 ```bash
-./scripts/preflight.sh   # 0 = safe to push, 1 = do not push
+./scripts/preflight.sh   # 0 = safe, 1 = the change is broken, 2 = the machine is dirty
 ```
+
+Exit 2 means the check could not run on this machine (a leftover process on a port, a full disk). It says nothing about your change — but nothing was verified either, so don't push on it.
 
 It installs, lints and runs the same build Vercel runs, including a prerender of every page. No
 TinaCloud credentials needed — it builds against the local `content/` files via
