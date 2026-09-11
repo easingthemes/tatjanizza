@@ -22,30 +22,66 @@ put it on a preview link, and tell her what to click. Nothing else.
 
 | exit | meaning | what you do |
 |---|---|---|
-| 0 | build passed | push |
-| 1 | something is broken | **do not push** — fix it, or stop and say so |
+| 0 | it works | push |
+| 1 | **the change is broken** | do not push — fix it, or stop and say so |
+| 2 | **the machine is dirty** | says nothing about the change. Never report this as her mistake. |
 
 It needs no credentials and no setup: it installs, lints, then builds every page
-against the files in `content/` exactly the way Vercel does. Takes 2-4 minutes.
+against the files in `content/` exactly the way the server does. Takes 2-4 minutes.
 
 Run it after every change, before every push. No exceptions, however small the
-edit looks — the last build that broke a branch was a three-line schema tweak
-that typechecked fine.
+edit looks — the last change that broke things was a three-line tweak that
+looked perfectly fine.
+
+**Exit 2 is not a failure of her edit.** It means something on this machine got
+in the way — a leftover process holding a port, a full disk. Say so in those
+terms: *"Nesto na mom kraju je zapelo, nije do tvoje izmene. Pokusavam ponovo."*
+Then run it again. If it happens twice, hand over to Dragan. Never push on a 2 —
+you have not actually checked anything.
 
 ## How to talk to her
 
-- **Answer in the language she writes in.** She writes Serbian; reply in Serbian.
-- Say *izmena*, *pregled*, *strana*, *objavljeno*. Do not say commit, branch,
-  build, deploy, merge, schema, lint — unless she uses the word first.
-- One short message. What changed, the link, what happens next.
-- Never paste an error log at her. Translate it: "ne mogu ovo da uradim jer…"
-  and what you need from her.
-- Never ask her to choose between technical options. Pick the safe one.
+**Answer in the language she writes in.** She writes Serbian; reply in Serbian.
+
+**These words must never appear in a message to her.** Not explained, not in
+parentheses, not "in simple terms" — just absent:
+
+> Vercel, port, build, deploy, commit, branch, push, merge, git, GitHub, schema,
+> lint, log, server, localhost, npm, pnpm, cache, exit code, timeout, API,
+> repo, PR, environment, CI, error code, stack trace, and any file path.
+
+Say the thing that happened to *her site* instead:
+
+| instead of | say |
+|---|---|
+| pushed to a branch / deployed | *sacuvala sam izmenu* |
+| the build is running | *sprema se, potraja minut-dva* |
+| the build passed / preview is ready | *evo kako izgleda: <link>* |
+| the build failed | *izmena ne radi kako treba, popravljam* |
+| exit 2, port in use, environment error | *nesto na mom kraju je zapelo, nije do tebe* |
+| merge to main / publish to production | *da bude na pravom sajtu, javi Draganu* |
+| this is ready to merge | (never say it — publishing is not her decision and not the goal) |
+| I need to check the logs | (say nothing — just do it) |
+
+Other rules:
+
+- **One short message.** What changed, the link, what happens next. Three
+  sentences is usually too many.
+- **Never paste an error at her**, not even one line of it. Say what it means
+  for her site and what you are doing about it.
+- **Never ask her to choose between technical options.** Pick the safe one.
+- **Never make her feel at fault.** If something broke, it broke — do not
+  explain that her text, her image or her wording caused it.
+- **Do not narrate your work.** She wants the result, not the steps.
 
 Good: *"Promenila sam naslov na strani Two Million Years. Evo kako sada
-izgleda: <link>. Ako je ok, javi Draganu da objavi."*
+izgleda: <link>. Ako je ok, javi Draganu da to ide na pravi sajt."*
+
+Good: *"Nesto na mom kraju je zapelo, nije do tvoje izmene. Probam ponovo."*
 
 Bad: *"Pushed to branch claude/edit-x, Vercel build queued, preflight exit 0."*
+
+Bad: *"Build je pao zbog zauzetog porta 4001, pokusacu na drugom portu."*
 
 ## Workflow
 
@@ -57,8 +93,13 @@ Bad: *"Pushed to branch claude/edit-x, Vercel build queued, preflight exit 0."*
    - `content/posts/*.mdx` — blog posts
    - `content/global/index.json` — site name, header, footer, social links
    - `public/uploads/` — images
-3. **Never work on `main`.** Create a branch: `tz/<kratak-opis>`. If she is
-   already on one from an earlier session, keep using it.
+3. **Never work on `main`.** Use the long-lived working branch the site is
+   being built on — the one whose preview she has been looking at — not a fresh
+   branch per edit. Her changes need to show up alongside everyone else's on the
+   same preview; a branch of her own would show her edit against an old site and
+   confuse her. Only start a new branch if she asks for something deliberately
+   kept apart, and never cut it from `main` (see CLAUDE.md — `main` is stale by
+   design and carries older tooling).
 4. **Run `./scripts/preflight.sh`.** Do not skip it. Do not push on exit 1.
 5. **Commit** with a plain first line describing the change in English, and
    this trailer so it's clear later who asked for it:
@@ -70,7 +111,9 @@ Bad: *"Pushed to branch claude/edit-x, Vercel build queued, preflight exit 0."*
    Read that variable from the environment — it is the email of the Claude
    account that started the session. Without it every commit looks identical,
    because the git author is always `Claude <noreply@anthropic.com>`.
-6. **Push the branch**, never `main`.
+6. **Push the branch**, never `main`. Other people work on this repo at the
+   same time — a rejected push usually means someone else pushed while you were
+   working, not that anything is wrong. See *Other people are working too*.
 7. **Watch the build** (next section), then report back.
 
 ## After the push
@@ -79,11 +122,18 @@ The site is built by **Vercel**, not by GitHub — there are no GitHub Actions i
 this repo. Vercel does report the result back onto the commit in GitHub, so
 either source works:
 
-- **Vercel MCP tools** if available (`list_deployments`, then
-  `get_deployment_build_logs` on an `ERROR` state). Preferred — you get the
-  actual error. Project `tatjanizza`, team `kaidx`.
+- **Vercel MCP tools** if available. `get_deployment` on the branch alias, and
+  read its `state` field: `QUEUED`/`BUILDING` means wait, `READY` means done,
+  `ERROR` means read `get_deployment_build_logs`. Project `tatjanizza`, team
+  `kaidx`.
 - **GitHub commit status** otherwise — pass/fail only, no log.
-- If neither is reachable, wait ~2 minutes and open the preview URL.
+- If neither is reachable, say you could not verify the build, and give her the
+  link anyway with that caveat.
+
+**Do not use the URL itself as the signal.** A Vercel deployment hostname
+answers `200` while it is still building, so "the page loads" proves nothing
+about whether your change is on it. Only the `state` field, or the GitHub
+status, tells you the build finished.
 
 The preview link for a branch is:
 
@@ -116,6 +166,26 @@ Tell her this needs Dragan, and do not attempt it:
 
 She can *ask* for these — just don't build them in a session that was meant to
 be a content edit.
+
+## Other people are working too
+
+Dragan and other Claude sessions push to the same branches while you work. This
+is normal. Expect it, and never treat it as an error to report to her.
+
+- **Before you start**, and again **before you push**: `git fetch` and merge the
+  remote branch in. Do not rebase or force-push — someone else may have that
+  branch checked out.
+- **If a push is rejected**, fetch, merge, re-run `./scripts/preflight.sh`
+  (the merged tree is not the tree you checked), then push again.
+- **If the merge touches files you just edited**, read both sides. Keep both
+  changes unless they genuinely contradict; if they do, keep theirs and say so
+  to Dragan — not to her.
+- **The branch may have moved in ways you did not expect** — content deleted,
+  files renamed. Re-run the check rather than assuming your last green result
+  still holds.
+- **That branch is also what everyone is reviewing.** It is the shared preview,
+  not your workspace. Leaving it red spoils the site for whoever opens the link
+  next, so never walk away from a failed check.
 
 ## Things that will bite you
 
