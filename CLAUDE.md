@@ -4,6 +4,19 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow (setup, commit conventions, how to restore the real home page) and [docs/editing-content.md](./docs/editing-content.md) for the non-technical content-editing guide. Keep this file and CONTRIBUTING.md in step — they intentionally overlap on the block-adding pattern and Biome settings.
 
+> [!IMPORTANT]
+> **If the person you are talking to is asking for a content change — a page, a heading, a paragraph, an image, a track listing, a post — invoke the `edit-site` skill and follow it.** The site's owner edits it herself through Claude Code, usually from a phone, and is not a developer. That skill carries the rules for those sessions: plain language, work on a branch never `main`, and the mandatory `./scripts/preflight.sh` check before every push. This file is for working on the code.
+
+## Never push a broken build
+
+`main` deploys straight to production and there is no CI gate, so the only thing standing between a bad commit and a red deploy is a local check. Run it before every push, on any branch:
+
+```bash
+./scripts/preflight.sh   # 0 = safe to push, 2 = partial check, 1 = do not push
+```
+
+It installs deps, lints, and then runs the same build Vercel runs. The full build needs `NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN` and `NEXT_PUBLIC_TINA_BRANCH` in the environment — `tina/__generated__/` is gitignored, so without them `next build` cannot even resolve its own types. When they are missing the script still validates the Tina schema and exits 2, which catches the most common breakage (a bad collection field) but not everything.
+
 ## Commands
 
 Package manager is **pnpm** (Node v22, see `.nvmrc`).

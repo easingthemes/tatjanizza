@@ -44,6 +44,16 @@ are deliberately off, so unused imports won't fail the build.
 
 ## Committing
 
+**Check before you push.** There is no CI, so nothing catches a broken build except you:
+
+```bash
+./scripts/preflight.sh   # 0 = safe to push, 2 = partial check, 1 = do not push
+```
+
+It installs, lints and runs the same build Vercel runs. The full build needs the three TinaCloud
+vars in your environment (`.env` is enough); without them the script still validates the Tina schema
+and exits 2 — useful, but not a complete check.
+
 **`main` deploys straight to production.** There's no staging environment and no CI gate — a push to
 `main` is a live deploy to www.tatjanizza.com. For anything non-trivial, branch and let Vercel build
 a preview first:
