@@ -8,6 +8,7 @@ import {
   JetBrains_Mono,
 } from "next/font/google";
 import { cn } from "@/lib/utils";
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
 
@@ -45,13 +46,9 @@ const fontMono = JetBrains_Mono({
   weight: ["400", "500"],
 });
 
-const SITE_NAME = "Tatjanizza";
-const SITE_DESCRIPTION =
-  "Music in ancient and modern tongues — Akkadian, Phoenician, Old Norse, Sanskrit, Old Greek, Hebrew, Welsh and Serbian.";
-
 export const metadata: Metadata = {
   // Required so relative OG/Twitter image paths resolve to absolute URLs.
-  metadataBase: new URL("https://www.tatjanizza.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
@@ -70,20 +67,13 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: "/",
     locale: "en_US",
-    images: [
-      {
-        url: "/og.jpg",
-        width: 1200,
-        height: 630,
-        alt: SITE_NAME,
-      },
-    ],
+    images: [{ ...DEFAULT_OG_IMAGE, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: ["/og.jpg"],
+    images: [DEFAULT_OG_IMAGE.url],
   },
   // Icons are picked up by convention from app/favicon.ico, app/icon.png
   // and app/apple-icon.png — no need to declare them here.
