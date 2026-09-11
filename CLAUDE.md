@@ -19,6 +19,12 @@ Exit 2 means the check could not run here — a leftover process on a port, a fu
 
 It installs deps, lints, then runs the same build Vercel runs — schema validation, typecheck and a prerender of every page. **No TinaCloud credentials are needed**: `tinacms build --local` starts a GraphQL server over `content/` and generates a client pointed at it, which is enough for `next build`. Everything it writes (`tina/__generated__/`, `public/admin/index.html`) is gitignored, so the working tree stays clean. `NODE_ENV=production` is set explicitly inside the script — without it Next prerenders `/404` with the dev pages runtime and dies on `<Html> should not be imported outside of pages/_document`, an error that has nothing to do with your change.
 
+## Where the starter examples went
+
+The TinaCMS starter content (demo posts, authors, tags, testimonial avatars) was removed in `31fb48b`. It is preserved on the **`demo-backup`** branch — `main` at `7f0a6cc`, frozen — because it is the only worked example in the repo of how the content layer is shaped: post frontmatter, `author`/`tags` serialising as file paths rather than slugs, a post in a subfolder, the custom rich-text templates in use, and one page using every stock block at once.
+
+Read from it without merging: `git show demo-backup:content/posts/learning-about-components.mdx`. The branch's own `DEMO-BACKUP.md` says what each file is worth reading for. Never merge that branch into `main`.
+
 ## Other people push while you work
 
 Dragan, Tatjanizza's sessions and other Claude sessions all push to this repo, sometimes to the same branch, at the same time. A rejected push is routine, not a fault.
