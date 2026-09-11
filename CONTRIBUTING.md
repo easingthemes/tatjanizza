@@ -57,6 +57,29 @@ git push -u origin short-description
 Commit messages: a `type: summary` first line (`feat:`, `fix:`, `docs:`, `chore:`), then a body
 explaining *why* if it isn't obvious. Keep unrelated changes in separate commits.
 
+### Previews
+
+Every branch pushed to the repo gets its own preview deployment, built automatically. The build
+takes roughly **one to three minutes** after the push — until it finishes, the URL 404s or still
+serves the previous commit.
+
+The stable per-branch URL is:
+
+```
+https://tatjanizza-git-<branch>-kaidx.vercel.app
+```
+
+where `<branch>` is the branch name with every `/` and other non-alphanumeric character replaced by
+`-` (so `claude/my-fix` becomes `claude-my-fix`). Long branch names are truncated and get a short
+hash appended instead, so if the URL doesn't resolve, take the exact link from the Vercel deployment
+check on the commit, or from the project dashboard — `tatjanizza` in the Vercel team **kaidx**
+(*vebkurs-5678's projects*).
+
+Preview deployments are **public**: anyone with the link can open them, no Vercel account or login
+needed. Handy for sending work in progress to Tatjana for review, but treat any preview link as
+public — don't put anything on a branch you wouldn't publish. (`/admin` is the exception; it still
+needs a TinaCloud login.)
+
 ## Architecture in one minute
 
 Fuller notes live in [CLAUDE.md](./CLAUDE.md). The essentials:
