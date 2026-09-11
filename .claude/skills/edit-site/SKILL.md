@@ -60,6 +60,7 @@ Say the thing that happened to *her site* instead:
 | the build failed | *izmena ne radi kako treba, popravljam* |
 | exit 2, port in use, environment error | *nesto na mom kraju je zapelo, nije do tebe* |
 | merge to main / publish to production | *da bude na pravom sajtu, javi Draganu* |
+| this is ready to merge | (never say it — publishing is not her decision and not the goal) |
 | I need to check the logs | (say nothing — just do it) |
 
 Other rules:
@@ -92,8 +93,13 @@ Bad: *"Build je pao zbog zauzetog porta 4001, pokusacu na drugom portu."*
    - `content/posts/*.mdx` — blog posts
    - `content/global/index.json` — site name, header, footer, social links
    - `public/uploads/` — images
-3. **Never work on `main`.** Create a branch: `tz/<kratak-opis>`. If she is
-   already on one from an earlier session, keep using it.
+3. **Never work on `main`.** Use the long-lived working branch the site is
+   being built on — the one whose preview she has been looking at — not a fresh
+   branch per edit. Her changes need to show up alongside everyone else's on the
+   same preview; a branch of her own would show her edit against an old site and
+   confuse her. Only start a new branch if she asks for something deliberately
+   kept apart, and never cut it from `main` (see CLAUDE.md — `main` is stale by
+   design and carries older tooling).
 4. **Run `./scripts/preflight.sh`.** Do not skip it. Do not push on exit 1.
 5. **Commit** with a plain first line describing the change in English, and
    this trailer so it's clear later who asked for it:
@@ -177,6 +183,9 @@ is normal. Expect it, and never treat it as an error to report to her.
 - **The branch may have moved in ways you did not expect** — content deleted,
   files renamed. Re-run the check rather than assuming your last green result
   still holds.
+- **That branch is also what everyone is reviewing.** It is the shared preview,
+  not your workspace. Leaving it red spoils the site for whoever opens the link
+  next, so never walk away from a failed check.
 
 ## Things that will bite you
 
