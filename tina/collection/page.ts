@@ -34,9 +34,10 @@ const Page: Collection = {
       name: 'title',
       label: 'Page title',
       description: 'Used for the tab title and sharing when no SEO title is set.',
+      // Tina requires `required` alongside `isTitle`; without it the schema fails
+      // validation and `tinacms build` stops before Next ever runs.
       isTitle: true,
-      // Not required: a page hand-edited in git without a title would otherwise make
-      // the whole `pageConnection` query fail and break the build, not just that page.
+      required: true,
     },
     seoSchemaField,
     {
