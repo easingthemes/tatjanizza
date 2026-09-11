@@ -7,6 +7,22 @@ Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow 
 > [!IMPORTANT]
 > **If the person you are talking to is asking for a content change — a page, a heading, a paragraph, an image, a track listing, a post — invoke the `edit-site` skill and follow it.** The site's owner edits it herself through Claude Code, usually from a phone, and is not a developer. That skill carries the rules for those sessions: plain language, work on a branch never `main`, and the mandatory `./scripts/preflight.sh` check before every push. This file is for working on the code.
 
+## Working branches are the environment — `main` is not the goal
+
+**Do not merge to `main`, and do not open pull requests, unless asked.** Working branches stay open for a long time here, deliberately. The branch's Vercel preview *is* the review environment — the UAT the site is judged on — and it is where Tatjanizza and Dragan look at the work. `main` is production; getting there is a decision taken later and separately, not the natural end of a piece of work.
+
+Three things follow, and they change how you should behave:
+
+- **"Ready to merge" is not the finish line. "The preview is right" is.** Do not chase a mergeable state, do not tidy history for a future merge, do not propose a PR as the next step when a task is done. Give the preview link.
+- **A red preview is a broken environment, not a failed build.** People are using that URL to look at the site. Fix it with the urgency of a broken staging box, not of a CI annoyance.
+- **Long-lived branches drift.** Merge `main` *into* the working branch when `main` moves — never the reverse — so the branch keeps whatever landed there. Never rebase or force-push a branch other people have checked out.
+
+### The trap this creates
+
+`main` goes stale while the working branch carries the real state. Anything cut fresh from `main` — a new branch for a new piece of work — inherits **old tooling and old rules**: an older `scripts/preflight.sh`, an older `edit-site` skill, an older copy of this file.
+
+So: **branch from the current working branch, not from `main`**, unless you have a specific reason to start from production. If you do need to start from `main`, bring the working branch's `scripts/`, `.claude/` and `CLAUDE.md` across first, or you will be checking your work with a version that has known bugs in it.
+
 ## Never push a broken build
 
 `main` deploys straight to production and there is no CI gate, so the only thing standing between a bad commit and a red deploy is a local check. Run it before every push, on any branch:
