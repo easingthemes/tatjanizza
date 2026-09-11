@@ -79,11 +79,18 @@ The site is built by **Vercel**, not by GitHub — there are no GitHub Actions i
 this repo. Vercel does report the result back onto the commit in GitHub, so
 either source works:
 
-- **Vercel MCP tools** if available (`list_deployments`, then
-  `get_deployment_build_logs` on an `ERROR` state). Preferred — you get the
-  actual error. Project `tatjanizza`, team `kaidx`.
+- **Vercel MCP tools** if available. `get_deployment` on the branch alias, and
+  read its `state` field: `QUEUED`/`BUILDING` means wait, `READY` means done,
+  `ERROR` means read `get_deployment_build_logs`. Project `tatjanizza`, team
+  `kaidx`.
 - **GitHub commit status** otherwise — pass/fail only, no log.
-- If neither is reachable, wait ~2 minutes and open the preview URL.
+- If neither is reachable, say you could not verify the build, and give her the
+  link anyway with that caveat.
+
+**Do not use the URL itself as the signal.** A Vercel deployment hostname
+answers `200` while it is still building, so "the page loads" proves nothing
+about whether your change is on it. Only the `state` field, or the GitHub
+status, tells you the build finished.
 
 The preview link for a branch is:
 
