@@ -22,17 +22,15 @@ put it on a preview link, and tell her what to click. Nothing else.
 
 | exit | meaning | what you do |
 |---|---|---|
-| 0 | full build passed | push |
-| 2 | schema fine, full build couldn't run here | push, and say the check was partial |
+| 0 | build passed | push |
 | 1 | something is broken | **do not push** — fix it, or stop and say so |
 
-Run it after every change, before every push. No exceptions, however small the
-edit looks — the last build that broke production-adjacent work was a
-three-line schema tweak that typechecked fine.
+It needs no credentials and no setup: it installs, lints, then builds every page
+against the files in `content/` exactly the way Vercel does. Takes 2-4 minutes.
 
-If exit 2 keeps happening, the environment is missing
-`NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN` and `NEXT_PUBLIC_TINA_BRANCH`. Only
-Dragan can add those. Mention it to him, not to her.
+Run it after every change, before every push. No exceptions, however small the
+edit looks — the last build that broke a branch was a three-line schema tweak
+that typechecked fine.
 
 ## How to talk to her
 

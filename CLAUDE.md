@@ -12,10 +12,10 @@ Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow 
 `main` deploys straight to production and there is no CI gate, so the only thing standing between a bad commit and a red deploy is a local check. Run it before every push, on any branch:
 
 ```bash
-./scripts/preflight.sh   # 0 = safe to push, 2 = partial check, 1 = do not push
+./scripts/preflight.sh   # 0 = safe to push, 1 = do not push
 ```
 
-It installs deps, lints, and then runs the same build Vercel runs. The full build needs `NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN` and `NEXT_PUBLIC_TINA_BRANCH` in the environment — `tina/__generated__/` is gitignored, so without them `next build` cannot even resolve its own types. When they are missing the script still validates the Tina schema and exits 2, which catches the most common breakage (a bad collection field) but not everything.
+It installs deps, lints, then runs the same build Vercel runs — schema validation, typecheck and a prerender of every page. **No TinaCloud credentials are needed**: `tinacms build --local` starts a GraphQL server over `content/` and generates a client pointed at it, which is enough for `next build`. Everything it writes (`tina/__generated__/`, `public/admin/index.html`) is gitignored, so the working tree stays clean. `NODE_ENV=production` is set explicitly inside the script — without it Next prerenders `/404` with the dev pages runtime and dies on `<Html> should not be imported outside of pages/_document`, an error that has nothing to do with your change.
 
 ## Commands
 
