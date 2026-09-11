@@ -12,6 +12,7 @@ import { tzProseBlockSchema } from '@/components/blocks/tz-prose';
 import { tzTimelineBlockSchema } from '@/components/blocks/tz-timeline';
 import { tzTracksBlockSchema } from '@/components/blocks/tz-tracks';
 import { tzCreditsBlockSchema } from '@/components/blocks/tz-credits';
+import { seoSchemaField } from '@/tina/fields/seo';
 
 const Page: Collection = {
   label: 'Pages',
@@ -28,6 +29,16 @@ const Page: Collection = {
     },
   },
   fields: [
+    {
+      type: 'string',
+      name: 'title',
+      label: 'Page title',
+      description: 'Used for the tab title and sharing when no SEO title is set.',
+      isTitle: true,
+      // Not required: a page hand-edited in git without a title would otherwise make
+      // the whole `pageConnection` query fail and break the build, not just that page.
+    },
+    seoSchemaField,
     {
       type: 'object',
       list: true,
