@@ -1,4 +1,5 @@
 import React from 'react';
+import { notFound } from 'next/navigation';
 import client from '@/tina/__generated__/client';
 import Layout from '@/components/layout/layout';
 import PostClientPage from './client-page';
@@ -12,9 +13,18 @@ export default async function PostPage({
 }) {
   const resolvedParams = await params;
   const filepath = resolvedParams.urlSegments.join('/');
-  const data = await client.queries.post({
-    relativePath: `${filepath}.mdx`,
-  });
+
+  // Same guard the page route has always had: a missing document must render the
+  // 404 page, not throw. Without it any unknown /posts/... URL is a 500 — invisible
+  // while every post existed, and immediate once the starter posts were removed.
+  let data;
+  try {
+    data = await client.queries.post({
+      relativePath: `${filepath}.mdx`,
+    });
+  } catch {
+    notFound();
+  }
 
   return (
     <Layout rawPageData={data}>
