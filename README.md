@@ -1,3 +1,9 @@
+> [!CAUTION]
+> **You are on `demo-backup`, a frozen reference branch — not the site.**
+> It is `main` at `7f0a6cc`, kept only because it still contains the TinaCMS
+> starter content that was removed from the working branch. Do not merge it,
+> build on it, or push to it. See [DEMO-BACKUP.md](./DEMO-BACKUP.md).
+
 # tatjanizza.com
 
 Personal site for **Tatjanizza** — a musician who records in ancient and modern languages
