@@ -11,8 +11,8 @@ Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow 
 
 > [!IMPORTANT]
 > **The main working branch is `claude/website-plan-messages-qp0ofw`.**
-> Unless you were told otherwise, that is the branch you check out, commit to and push. Its preview —
-> `https://tatjanizza-git-claude-website-plan-messages-qp0ofw-kaidx.vercel.app` — is the site everyone is looking at.
+> Unless you were told otherwise, that is the branch you check out, commit to and push. It holds the newest version of the site, reviewed at
+> `https://tatjanizza-git-claude-website-plan-messages-qp0ofw-kaidx.vercel.app`. It is **not** the published site: www.tatjanizza.com is built from `main` and is still the Coming Soon splash. Do not describe the branch to anyone as the live or public site.
 > The name is an artefact of the session that opened it; it is kept because the URL is already in use. Do not rename it, and do not start a parallel branch because the name looks temporary.
 
 **Do not merge to `main`, and do not open pull requests, unless asked.** Working branches stay open for a long time here, deliberately. The branch's Vercel preview *is* the review environment — the UAT the site is judged on — and it is where Tatjanizza and Dragan look at the work. `main` is production; getting there is a decision taken later and separately, not the natural end of a piece of work.

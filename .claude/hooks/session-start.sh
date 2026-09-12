@@ -39,22 +39,31 @@ else
   cat <<EOF
 === STOP AND ASK THE USER BEFORE DOING ANY WORK ===
 
-This session is on '$current'. That branch does NOT contain the current site.
+This session is on '$current'. That is not where the current work is.
 
-  * 'main' still renders the temporary "Coming Soon" splash. It is the site as
-    last published, months behind.
-  * All recent work — the real home page, the Two Million Years page, the
-    blocks, the logo, the SEO — is on '$WORKING_BRANCH'. That branch is the
-    QA/UAT environment and its preview is what everyone reviews:
+  * The public site, www.tatjanizza.com, is built from 'main' and is still the
+    temporary "Coming Soon" splash. That is deliberate — the real site has not
+    been published yet.
+  * '$WORKING_BRANCH' holds the newest version of the
+    site: the real home page, the Two Million Years page, the blocks, the logo,
+    the SEO. It is NOT public. Its preview, for looking at work in progress:
     https://tatjanizza-git-claude-website-plan-messages-qp0ofw-kaidx.vercel.app
 
-Anything you build or judge here will be built against a stale site.
+Anything you build or judge here is built against an old tree.
 
 Your first action in this session is to ask the user, in their own language,
-whether to continue on '$WORKING_BRANCH' instead. Ask it plainly — for a
-non-technical user say it as "nastavljamo na verziji sajta na kojoj se
-trenutno radi?", not in terms of branches. Do not read files, plan, or edit
-anything before they answer.
+whether to continue on that newer version — and **recommend that they do**,
+because every recent change is there and nothing recent is here. Do not read
+files, plan, or edit anything before they answer.
+
+Say it plainly. For a non-technical user, something like: "Ovde je starija
+verzija sajta. Najnovije izmene su na drugoj — javni sajt je jos uvek 'Coming
+Soon'. Preporucujem da nastavimo na najnovijoj. Reci samo 'da' i prebacicu se."
+
+**Do not call it "the version everyone is looking at", the live site, or the
+public site.** It is none of those — it is the latest work in progress, visible
+to anyone with the preview link but not published. Saying otherwise has already
+confused someone once.
 
 If they say yes, switch to it before touching anything:
 
