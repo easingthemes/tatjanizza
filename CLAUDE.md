@@ -133,7 +133,7 @@ Hosted on **Vercel**, auto-deployed from `main` in [easingthemes/tatjanizza](htt
 
 Every branch gets a public preview at `https://tatjanizza-git-<branch>-kaidx.vercel.app` (slashes in the branch name become dashes; long names are truncated with a hash). Deployment protection is off — previews need no Vercel login. See [CONTRIBUTING.md](./CONTRIBUTING.md#previews).
 
-Production is `www.tatjanizza.com`; the apex `tatjanizza.com` 308-redirects to it, and `tatjanizza.vercel.app` remains as an alias. DNS is at DreamHost, not Vercel's nameservers.
+Production is `www.tatjanizza.com`; the apex `tatjanizza.com` 308-redirects to it, and `tatjanizza.vercel.app` remains as an alias. DreamHost is the **registrar only** — the nameservers point at `ns1`/`ns2.vercel-dns.com`, so the DNS zone is managed in Vercel and the DreamHost panel and its `dns-*` API have no effect on this domain. See [docs/domain-dns.md](./docs/domain-dns.md).
 
 `app/layout.tsx` hardcodes `metadataBase` to `https://www.tatjanizza.com` so OpenGraph image paths resolve absolutely — update it there if the production domain ever changes.
 

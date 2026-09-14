@@ -59,6 +59,7 @@ NEXT_PUBLIC_TINA_BRANCH=main
 |---|---|
 | [CONTRIBUTING.md](./CONTRIBUTING.md) | developing: commands, adding blocks, conventions, gotchas |
 | [docs/editing-content.md](./docs/editing-content.md) | editing the site's words and images — no code |
+| [docs/domain-dns.md](./docs/domain-dns.md) | how the domain reaches Vercel, and what lives in DreamHost |
 | [CLAUDE.md](./CLAUDE.md) | architecture notes, also read by AI coding assistants |
 
 ## Deployment
@@ -78,14 +79,10 @@ A push is not instant: Vercel needs roughly **one to three minutes** to build be
 is served. Every branch gets its own preview deployment — see
 [CONTRIBUTING.md](./CONTRIBUTING.md#previews) for the URL pattern.
 
-DNS stays at **DreamHost** (nameservers `ns1`–`ns3.dreamhost.com`) rather than moving to Vercel's,
-using an `A` record on the apex and a `CNAME` on `www` pointing at the project's Vercel target.
-
-> [!IMPORTANT]
-> If these records ever need re-creating, read the values from the relevant row under Vercel →
-> Settings → Domains → *DNS configuration*. Vercel issues a **per-project** CNAME target for
-> subdomains, so do not use the generic legacy values (`cname.vercel-dns.com`, `76.76.21.21`), and
-> never add both an `A` and a `CNAME` for the same hostname.
+**DreamHost is the registrar, but it does not serve DNS for this domain.** The nameservers point at
+`ns1`/`ns2.vercel-dns.com`, so the whole zone is managed in Vercel and records added in the DreamHost
+panel have no effect. Full details — what was changed where, how to redo it, and what to watch out
+for — are in [docs/domain-dns.md](./docs/domain-dns.md).
 
 `NEXT_PUBLIC_TINA_CLIENT_ID`, `TINA_TOKEN` and `NEXT_PUBLIC_TINA_BRANCH` must also be set in the
 Vercel project (Settings → Environment Variables), not only in local `.env`.
