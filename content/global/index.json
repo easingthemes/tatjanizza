@@ -15,6 +15,10 @@
       {
         "href": "/two-million-years",
         "label": "Two Million Years"
+      },
+      {
+        "href": "/about",
+        "label": "About"
       }
     ]
   },
