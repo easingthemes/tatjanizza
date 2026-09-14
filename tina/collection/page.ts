@@ -7,6 +7,7 @@ import { videoBlockSchema } from '@/components/blocks/video';
 import { calloutBlockSchema } from '@/components/blocks/callout';
 import { statsBlockSchema } from '@/components/blocks/stats';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { tzThresholdBlockSchema } from '@/components/blocks/tz-threshold';
 import { tzHeroBlockSchema } from '@/components/blocks/tz-hero';
 import { tzProseBlockSchema } from '@/components/blocks/tz-prose';
 import { tzTimelineBlockSchema } from '@/components/blocks/tz-timeline';
@@ -49,6 +50,7 @@ const Page: Collection = {
         visualSelector: true,
       },
       templates: [
+        tzThresholdBlockSchema,
         tzHeroBlockSchema,
         tzProseBlockSchema,
         tzTimelineBlockSchema,
