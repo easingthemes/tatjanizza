@@ -240,6 +240,12 @@
   .tz-rise {
     animation: tz-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
   }
+
+  /* Anchor jumps glide instead of cutting — the home page opens on a full-height
+     section, so every jump past it is a long one. */
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @keyframes tz-rise {
