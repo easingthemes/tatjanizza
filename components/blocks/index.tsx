@@ -1,6 +1,7 @@
 import { tinaField } from "tinacms/dist/react";
 import { Page, PageBlocks } from "../../tina/__generated__/types";
 import { Hero } from "./hero";
+import { TzThreshold } from "./tz-threshold";
 import { Content } from "./content";
 import { Features } from "./features";
 import { Testimonial } from "./testimonial";
@@ -47,6 +48,8 @@ const Block = (block: PageBlocks) => {
       return <Testimonial data={block} />;
     case "PageBlocksCta":
       return <CallToAction data={block} />;
+    case "PageBlocksTzThreshold":
+      return <TzThreshold data={block} />;
     case "PageBlocksTzHero":
       return <TzHero data={block} />;
     case "PageBlocksTzProse":
