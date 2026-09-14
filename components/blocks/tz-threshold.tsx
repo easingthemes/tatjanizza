@@ -15,6 +15,13 @@ import { PageBlocksTzThreshold } from '../../tina/__generated__/types';
  * Green became gold because the rest of the site is gold on void, and the rain is
  * mixed scripts rather than katakana alone — the same argument the songs make, that
  * writing systems are how time is marked.
+ *
+ * The word is Prisustvo — Presence. Akkadian, Phoenician and Sumerian are absent from
+ * the list on the home page on purpose: docs/plan/05-open-questions.md says not to
+ * guess those, and the splash this descends from shipped two of them marked
+ * UNVERIFIED. The phrases are an editable field, so they can be added without a
+ * developer once the words are confirmed. (Kept here rather than as a comment in
+ * home.mdx, which Tina rewrites — and silently drops comments from — on every save.)
  */
 
 const GLYPHS =
@@ -200,7 +207,7 @@ export const tzThresholdBlockSchema: Template = {
   ui: {
     defaultItem: {
       label: 'Presence',
-      hint: '↓',
+      hint: 'scroll',
       phrases: [{ lang: 'en', text: 'PRESENCE' }],
     },
     itemProps: () => ({ label: 'Threshold' }),
@@ -224,7 +231,7 @@ export const tzThresholdBlockSchema: Template = {
       name: 'phrases',
       list: true,
       ui: {
-        itemProps: (item) => ({ label: [item?.lang, item?.text].filter(Boolean).join('  ·  ') }),
+        itemProps: (item) => ({ label: [item?.lang, item?.text].filter(Boolean).join(' - ') }),
       },
       fields: [
         {
