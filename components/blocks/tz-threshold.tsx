@@ -189,6 +189,19 @@ export const TzThreshold = ({ data }: { data: PageBlocksTzThreshold }) => {
         <Scrambled phrases={phrases} label={data.label || phrases[0].text || ''} />
       </div>
 
+      {data.line && (
+        // Deliberately untranslated. The word above changes language every few seconds;
+        // this does not. Serif because the site reads serif as the human layer and mono
+        // as the machine one, and this is the one human sentence in the section.
+        <p
+          lang={data.lineLang || undefined}
+          className='relative mt-8 text-center font-[family-name:var(--font-serif)] text-[clamp(1.05rem,2.6vw,1.5rem)] italic text-[var(--tz-parchment)]/70'
+          data-tina-field={tinaField(data, 'line')}
+        >
+          {data.line}
+        </p>
+      )}
+
       {data.hint && (
         <p
           className='tz-mono absolute bottom-10 animate-pulse text-[var(--tz-gold-dim)]'
@@ -208,6 +221,8 @@ export const tzThresholdBlockSchema: Template = {
     defaultItem: {
       label: 'Presence',
       hint: 'scroll',
+      line: 'prisustvo se pamti',
+      lineLang: 'sr',
       phrases: [{ lang: 'en', text: 'PRESENCE' }],
     },
     itemProps: () => ({ label: 'Threshold' }),
@@ -218,6 +233,18 @@ export const tzThresholdBlockSchema: Template = {
       label: 'The word, in plain English',
       name: 'label',
       description: 'Read aloud by screen readers instead of the animation. Not shown on the page.',
+    },
+    {
+      type: 'string',
+      label: 'The line that does not change',
+      name: 'line',
+      description: 'Stays put while the word above moves through the languages. Left untranslated on purpose.',
+    },
+    {
+      type: 'string',
+      label: 'Language of that line',
+      name: 'lineLang',
+      description: 'e.g. sr. Lets browsers and screen readers pronounce it correctly.',
     },
     {
       type: 'string',
