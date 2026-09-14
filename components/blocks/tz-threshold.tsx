@@ -129,7 +129,7 @@ const Rain = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} aria-hidden='true' className='pointer-events-none absolute inset-0 opacity-40' />;
+  return <canvas ref={canvasRef} aria-hidden='true' className='pointer-events-none absolute inset-0 opacity-60' />;
 };
 
 type Phrase = { lang?: string | null; text?: string | null };
