@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import type { Template } from 'tinacms';
 import { tinaField } from 'tinacms/dist/react';
 import { PageBlocksTzThreshold } from '../../tina/__generated__/types';
@@ -12,9 +13,9 @@ import { PageBlocksTzThreshold } from '../../tina/__generated__/types';
  * things that made it a wall removed: it is a section rather than a page, and there
  * is nothing to click. A visitor lands in it and scrolls out of it.
  *
- * Green became gold because the rest of the site is gold on void, and the rain is
- * mixed scripts rather than katakana alone — the same argument the songs make, that
- * writing systems are how time is marked.
+ * Gold on void rather than the splash's Matrix green, so the door belongs to the house
+ * behind it. The rain mixes Greek and Hebrew letterforms into the katakana, which is
+ * nearer the argument the songs make than a pure Matrix homage.
  *
  * The word is Prisustvo — Presence. Akkadian, Phoenician and Sumerian are absent from
  * the list on the home page on purpose: docs/plan/05-open-questions.md says not to
@@ -59,6 +60,7 @@ const Rain = () => {
     let frame = 0;
     let raf = 0;
     let visible = true;
+    let scrolling = 0;
 
     const resize = () => {
       const rect = parent.getBoundingClientRect();
@@ -80,14 +82,16 @@ const Rain = () => {
 
     const draw = () => {
       raf = requestAnimationFrame(draw);
-      if (!visible || !width) return;
+      // Repainting a full-screen canvas while the user drags makes the scroll stutter
+      // on a phone. The rain holds still for a moment and picks up where it stopped.
+      if (!visible || scrolling || !width) return;
       // Throttle to ~20fps; the effect reads better slow and costs less battery
       if (frame++ % 3 !== 0) return;
 
       ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
       ctx.fillRect(0, 0, width, height);
       ctx.font = `${FONT_SIZE}px ui-monospace, monospace`;
-      ctx.fillStyle = 'rgba(212, 175, 90, 0.5)';
+      ctx.fillStyle = 'rgba(212, 175, 90, 0.55)';
 
       columns.forEach((y, i) => {
         ctx.fillText(GLYPHS[Math.floor(Math.random() * GLYPHS.length)], i * FONT_SIZE, y * FONT_SIZE);
@@ -103,17 +107,29 @@ const Rain = () => {
     });
     io.observe(parent);
 
+    let settle = 0;
+    const onScroll = () => {
+      scrolling = 1;
+      clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        scrolling = 0;
+      }, 180);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     resize();
     draw();
 
     return () => {
       cancelAnimationFrame(raf);
+      clearTimeout(settle);
+      window.removeEventListener('scroll', onScroll);
       ro.disconnect();
       io.disconnect();
     };
   }, []);
 
-  return <canvas ref={canvasRef} aria-hidden='true' className='pointer-events-none absolute inset-0' />;
+  return <canvas ref={canvasRef} aria-hidden='true' className='pointer-events-none absolute inset-0 opacity-40' />;
 };
 
 type Phrase = { lang?: string | null; text?: string | null };
@@ -168,7 +184,7 @@ const Scrambled = ({ phrases, label }: { phrases: Phrase[]; label: string }) => 
       // stream of half-scrambled strings as the animation runs.
       aria-label={label}
       className='text-center font-[family-name:var(--font-mono)] text-[clamp(1.5rem,6vw,3rem)] tracking-[0.3em] text-[var(--tz-gold)]'
-      style={{ textShadow: '0 0 10px rgba(212,175,90,0.55), 0 0 30px rgba(212,175,90,0.25)' }}
+      style={{ textShadow: '0 0 10px rgba(212,175,90,0.6), 0 0 30px rgba(212,175,90,0.3)' }}
     >
       <span aria-hidden='true'>{display}</span>
     </p>
@@ -182,8 +198,22 @@ export const TzThreshold = ({ data }: { data: PageBlocksTzThreshold }) => {
   return (
     // -mt-20 pulls the section under the fixed header; mb-20 gives the next block back
     // what its own -mt-20 takes, so the two sit flush instead of overlapping.
-    <section className='relative -mt-20 mb-20 flex min-h-[92svh] flex-col items-center justify-center overflow-hidden bg-[var(--tz-void)] px-6'>
+    <section className='relative -mt-20 mb-20 flex min-h-[calc(100svh+5rem)] flex-col items-center justify-center gap-8 overflow-hidden bg-[var(--tz-void)] px-6 pt-20'>
       <Rain />
+
+      {data.image?.src && (
+        <div className='relative shrink-0' data-tina-field={tinaField(data.image, 'src')}>
+          <Image
+            src={data.image.src}
+            alt={data.image.alt || ''}
+            width={1024}
+            height={1024}
+            priority
+            sizes='(max-width: 640px) 70vw, 380px'
+            className='h-auto w-[70vw] max-w-[380px] rounded-full border border-[var(--tz-gold)]/30 shadow-[0_0_60px_rgba(212,175,90,0.25)]'
+          />
+        </div>
+      )}
 
       <div className='relative flex min-h-24 items-center' data-tina-field={tinaField(data, 'phrases')}>
         <Scrambled phrases={phrases} label={data.label || phrases[0].text || ''} />
@@ -195,7 +225,7 @@ export const TzThreshold = ({ data }: { data: PageBlocksTzThreshold }) => {
         // as the machine one, and this is the one human sentence in the section.
         <p
           lang={data.lineLang || undefined}
-          className='relative mt-8 text-center font-[family-name:var(--font-serif)] text-[clamp(1.05rem,2.6vw,1.5rem)] italic text-[var(--tz-parchment)]/70'
+          className='relative mt-8 text-center font-[family-name:var(--font-serif)] text-[clamp(1.05rem,2.6vw,1.5rem)] italic text-[var(--tz-parchment)]/60'
           data-tina-field={tinaField(data, 'line')}
         >
           {data.line}
@@ -233,6 +263,15 @@ export const tzThresholdBlockSchema: Template = {
       label: 'The word, in plain English',
       name: 'label',
       description: 'Read aloud by screen readers instead of the animation. Not shown on the page.',
+    },
+    {
+      type: 'object',
+      label: 'Image in the middle',
+      name: 'image',
+      fields: [
+        { name: 'src', label: 'Image', type: 'image' },
+        { name: 'alt', label: 'Alt text', type: 'string' },
+      ],
     },
     {
       type: 'string',
