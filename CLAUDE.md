@@ -42,6 +42,19 @@ Exit 2 means the check could not run here — a leftover process on a port, a fu
 
 It installs deps, lints, then runs the same build Vercel runs — schema validation, typecheck and a prerender of every page. **No TinaCloud credentials are needed**: `tinacms build --local` starts a GraphQL server over `content/` and generates a client pointed at it, which is enough for `next build`. Almost everything it writes (`tina/__generated__/`, `public/admin/index.html`) is gitignored. The exception is **`tina/tina-lock.json`**, which the check rebuilds when it has fallen behind the schema — commit it with your change. TinaCloud does not read `tina/config.tsx`; it indexes the branch against the schema in that committed lock, so adding a block and forgetting the lock leaves every deploy on the branch red with `Unable to seed content/pages/home.mdx` / `ERR_CLOUD_CHECK_FAILED` while the local build stays green. `NODE_ENV=production` is set explicitly inside the script — without it Next prerenders `/404` with the dev pages runtime and dies on `<Html> should not be imported outside of pages/_document`, an error that has nothing to do with your change.
 
+### A brand-new branch's first deploy can fail on TinaCloud indexing
+
+`tinacms build` in the Vercel build asks TinaCloud for the branch's indexed schema. TinaCloud indexes **per branch**, so the first push to a branch name it has never seen can fail with:
+
+```
+Failed to retrieve _schema.json for easingthemes/tatjanizza/<branch>
+errorCode: 'ERR_CLOUD_CHECK_FAILED'
+```
+
+**This is not your change.** `./scripts/preflight.sh` cannot catch it — it builds with `--local` and never talks to TinaCloud. Do not start editing code to fix it. The fix is to click **Reindex** for that branch in the TinaCloud project configuration (app.tina.io), then redeploy. A push to an already-indexed branch is unaffected, which is why `main` and long-lived branches never show this.
+
+Distinguish it from the other `ERR_CLOUD_CHECK_FAILED`: if the message is `Unable to seed <file>` rather than `Failed to retrieve _schema.json`, the branch *is* indexed and `tina/tina-lock.json` is stale — see above.
+
 ## Where the starter examples went
 
 The TinaCMS starter content (demo posts, authors, tags, testimonial avatars) was removed in `31fb48b` and is no longer anywhere on `main`. The copy to read from is the frozen **`demo-backup`** branch — `main` at `7f0a6cc` — because that content is the only worked example in the repo of how the content layer is shaped: post frontmatter, `author`/`tags` serialising as file paths rather than slugs, a post in a subfolder, the custom rich-text templates in use, and one page using every stock block at once.
