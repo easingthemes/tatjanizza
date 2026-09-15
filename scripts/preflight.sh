@@ -12,9 +12,10 @@
 #
 # No TinaCloud credentials needed. `tinacms build --local` starts a GraphQL
 # server over the files in content/ and generates a client pointed at it, which
-# is enough for `next build` to typecheck and prerender every page. The files it
-# writes (tina/__generated__/, public/admin/index.html) are all gitignored, so
-# this leaves the working tree clean.
+# is enough for `next build` to typecheck and prerender every page. Almost
+# everything it writes (tina/__generated__/, public/admin/index.html) is
+# gitignored; the one exception is tina/tina-lock.json, rebuilt by the last step
+# and only when it had fallen behind the schema — see there for why.
 #
 # Two things this script does that the bare command does not:
 #
@@ -108,6 +109,51 @@ if ! NODE_ENV=production npx tinacms build --local --skip-cloud-checks --noTelem
   exit 1
 fi
 echo 'OK: build'
+
+# The local build cannot catch a stale tina/tina-lock.json, but it is the one
+# file that breaks the deploy without breaking anything here. TinaCloud does not
+# read tina/config.tsx — it indexes the branch against the schema committed in
+# tina-lock.json. Add a block to the schema, commit the content that uses it and
+# forget the lock, and the cloud indexer meets a block it has never heard of:
+# "Unable to seed content/pages/home.mdx", ERR_CLOUD_CHECK_FAILED, every build on
+# the branch red until the lock catches up. That is what happened on
+# claude/website-plan-messages-qp0ofw when tzThreshold was added.
+#
+# The lock is just the three files `tinacms build` has already written, in one
+# object, so it is rebuilt rather than reported: a stale lock has no use anyone
+# would want to keep. It is tracked, so it has to be committed — this is the one
+# thing the script writes that is not gitignored, and it says so loudly.
+step 'Schema lock (tina-lock.json, the schema TinaCloud indexes with)'
+node -e '
+  const fs = require("fs");
+  const read = (p) => JSON.parse(fs.readFileSync(p, "utf8"));
+  const fresh = {
+    schema: read("tina/__generated__/_schema.json"),
+    lookup: read("tina/__generated__/_lookup.json"),
+    graphql: read("tina/__generated__/_graphql.json"),
+  };
+  const next = JSON.stringify(fresh);
+  const current = fs.existsSync("tina/tina-lock.json") ? fs.readFileSync("tina/tina-lock.json", "utf8") : "";
+  if (current === next) process.exit(0);
+  fs.writeFileSync("tina/tina-lock.json", next);
+  process.exit(3);
+' >/tmp/preflight-lock.log 2>&1
+LOCK_STATUS=$?
+case "$LOCK_STATUS" in
+  0)
+    echo 'OK: schema lock'
+    ;;
+  3)
+    echo 'UPDATED: tina/tina-lock.json was out of date with the schema.'
+    echo
+    echo 'This file is committed, unlike everything else this check writes. Commit it'
+    echo 'with your change — without it TinaCloud indexes the branch against the old'
+    echo 'schema and every deploy fails with "Unable to seed".'
+    ;;
+  *)
+    machine_problem 'The schema lock could not be rebuilt.' /tmp/preflight-lock.log
+    ;;
+esac
 
 echo
 echo 'VERDICT: SAFE TO PUSH — build passed.'

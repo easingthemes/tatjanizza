@@ -1,7 +1,14 @@
 import React from "react";
 import { Metadata } from "next";
-import { Inter as FontSans, Lato, Nunito } from "next/font/google";
+import {
+  Inter as FontSans,
+  Lato,
+  Nunito,
+  Cormorant_Garamond,
+  JetBrains_Mono,
+} from "next/font/google";
 import { cn } from "@/lib/utils";
+import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
 
@@ -24,13 +31,24 @@ const lato = Lato({
   weight: "400",
 });
 
-const SITE_NAME = "Tatjanizza";
-const SITE_DESCRIPTION =
-  "Music in ancient and modern tongues — Akkadian, Phoenician, Old Norse, Sanskrit, Old Greek, Hebrew, Welsh and Serbian.";
+// Display serif for the poetry and the statement — the human layer.
+const fontSerif = Cormorant_Garamond({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+// Monospace for dates, languages and credits — the machine layer.
+const fontMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+  weight: ["400", "500"],
+});
 
 export const metadata: Metadata = {
   // Required so relative OG/Twitter image paths resolve to absolute URLs.
-  metadataBase: new URL("https://www.tatjanizza.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: SITE_NAME,
     template: `%s | ${SITE_NAME}`,
@@ -49,20 +67,13 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     url: "/",
     locale: "en_US",
-    images: [
-      {
-        url: "/og.jpg",
-        width: 1200,
-        height: 630,
-        alt: SITE_NAME,
-      },
-    ],
+    images: [{ ...DEFAULT_OG_IMAGE, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
-    images: ["/og.jpg"],
+    images: [DEFAULT_OG_IMAGE.url],
   },
   // Icons are picked up by convention from app/favicon.ico, app/icon.png
   // and app/apple-icon.png — no need to declare them here.
@@ -74,8 +85,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn(fontSans.variable, nunito.variable, lato.variable)}>
-      <body className="min-h-screen bg-background font-sans antialiased">
+    <html
+      lang="en"
+      className={cn(
+        fontSans.variable,
+        nunito.variable,
+        lato.variable,
+        fontSerif.variable,
+        fontMono.variable,
+      )}
+    >
+      <body className="tz min-h-screen antialiased">
         <VideoDialogProvider>
           {children}
           <VideoDialog />

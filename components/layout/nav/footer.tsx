@@ -9,7 +9,7 @@ export const Footer = () => {
   const { header, footer } = globalSettings!;
 
   return (
-    <footer className="border-b bg-white pt-20 dark:bg-transparent">
+    <footer className="bg-background pt-20">
       <div className="mx-auto max-w-5xl px-6">
         <div className="mt-12 flex flex-wrap items-center gap-6 border-t py-6 flex-col md:flex-row md:justify-between">
 

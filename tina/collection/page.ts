@@ -7,6 +7,13 @@ import { videoBlockSchema } from '@/components/blocks/video';
 import { calloutBlockSchema } from '@/components/blocks/callout';
 import { statsBlockSchema } from '@/components/blocks/stats';
 import { ctaBlockSchema } from '@/components/blocks/call-to-action';
+import { tzThresholdBlockSchema } from '@/components/blocks/tz-threshold';
+import { tzHeroBlockSchema } from '@/components/blocks/tz-hero';
+import { tzProseBlockSchema } from '@/components/blocks/tz-prose';
+import { tzTimelineBlockSchema } from '@/components/blocks/tz-timeline';
+import { tzTracksBlockSchema } from '@/components/blocks/tz-tracks';
+import { tzCreditsBlockSchema } from '@/components/blocks/tz-credits';
+import { seoSchemaField } from '@/tina/fields/seo';
 
 const Page: Collection = {
   label: 'Pages',
@@ -24,6 +31,17 @@ const Page: Collection = {
   },
   fields: [
     {
+      type: 'string',
+      name: 'title',
+      label: 'Page title',
+      description: 'Used for the tab title and sharing when no SEO title is set.',
+      // Tina requires `required` alongside `isTitle`; without it the schema fails
+      // validation and `tinacms build` stops before Next ever runs.
+      isTitle: true,
+      required: true,
+    },
+    seoSchemaField,
+    {
       type: 'object',
       list: true,
       name: 'blocks',
@@ -32,6 +50,12 @@ const Page: Collection = {
         visualSelector: true,
       },
       templates: [
+        tzThresholdBlockSchema,
+        tzHeroBlockSchema,
+        tzProseBlockSchema,
+        tzTimelineBlockSchema,
+        tzTracksBlockSchema,
+        tzCreditsBlockSchema,
         heroBlockSchema,
         calloutBlockSchema,
         featureBlockSchema,

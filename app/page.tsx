@@ -1,27 +1,27 @@
-import React from "react";
-import ComingSoon from "@/components/coming-soon";
+import React from 'react';
+import type { Metadata } from 'next';
+import client from '@/tina/__generated__/client';
+import Layout from '@/components/layout/layout';
+import { JsonLd, personJsonLd } from '@/lib/json-ld';
+import { pageMetadata } from '@/lib/seo';
+import ClientPage from './[...urlSegments]/client-page';
 
-// TEMPORARY: coming-soon splash while the real site is built.
-// It deliberately skips <Layout> so it can own the full viewport.
-// To restore the Tina-driven home page, delete this and uncomment the block below.
-export default function Home() {
-  return <ComingSoon />;
+export const revalidate = 300;
+
+const home = () => client.queries.page({ relativePath: 'home.mdx' });
+
+export async function generateMetadata(): Promise<Metadata> {
+  const { data } = await home();
+  return pageMetadata({ seo: (data.page as any).seo, title: data.page.title, path: '/' });
 }
 
-// import client from "@/tina/__generated__/client";
-// import Layout from "@/components/layout/layout";
-// import ClientPage from "./[...urlSegments]/client-page";
-//
-// export const revalidate = 300;
-//
-// export default async function Home() {
-//   const data = await client.queries.page({
-//     relativePath: `home.mdx`,
-//   });
-//
-//   return (
-//     <Layout rawPageData={data}>
-//       <ClientPage {...data} />
-//     </Layout>
-//   );
-// }
+export default async function Home() {
+  const data = await home();
+
+  return (
+    <Layout rawPageData={data}>
+      <JsonLd data={personJsonLd()} />
+      <ClientPage {...data} />
+    </Layout>
+  );
+}

@@ -1,9 +1,9 @@
 {
   "header": {
     "icon": {
-      "name": "BiMusic",
-      "color": "orange",
-      "style": "float"
+      "name": "Tatjanizza",
+      "color": "gold",
+      "style": "regular"
     },
     "name": "Tatjanizza",
     "color": "default",
@@ -13,12 +13,12 @@
         "label": "Home"
       },
       {
-        "href": "/about",
-        "label": "About"
+        "href": "/two-million-years",
+        "label": "Two Million Years"
       },
       {
-        "href": "/posts",
-        "label": "Blog"
+        "href": "/about",
+        "label": "About"
       }
     ]
   },
