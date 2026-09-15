@@ -2,34 +2,33 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow (setup, commit conventions, how to restore the real home page) and [docs/editing-content.md](./docs/editing-content.md) for the non-technical content-editing guide. Keep this file and CONTRIBUTING.md in step — they intentionally overlap on the block-adding pattern and Biome settings.
+Companion docs: [CONTRIBUTING.md](./CONTRIBUTING.md) for the human dev workflow (setup, commit conventions, previews) and [docs/editing-content.md](./docs/editing-content.md) for the non-technical content-editing guide. Keep this file and CONTRIBUTING.md in step — they intentionally overlap on the block-adding pattern and Biome settings.
 
 > [!IMPORTANT]
 > **If the person you are talking to is asking for a content change — a page, a heading, a paragraph, an image, a track listing, a post — invoke the `edit-site` skill and follow it.** The site's owner edits it herself through Claude Code, usually from a phone, and is not a developer. That skill carries the rules for those sessions: plain language, work on a branch never `main`, and the mandatory `./scripts/preflight.sh` check before every push. This file is for working on the code.
 
-## Working branches are the environment — `main` is not the goal
+## `main` is the site
 
 > [!IMPORTANT]
-> **The main working branch is `claude/website-plan-messages-qp0ofw`.**
-> Unless you were told otherwise, that is the branch you check out, commit to and push. It holds the newest version of the site, reviewed at
-> `https://tatjanizza-git-claude-website-plan-messages-qp0ofw-kaidx.vercel.app`. It is **not** the published site: www.tatjanizza.com is built from `main` and is still the Coming Soon splash. Do not describe the branch to anyone as the live or public site.
-> The name is an artefact of the session that opened it; it is kept because the URL is already in use. Do not rename it, and do not start a parallel branch because the name looks temporary.
+> **`main` is the published site, and it is where work belongs.** www.tatjanizza.com is built from `main`, and `main` now carries the real site — the home page, the Two Million Years page, the blocks, the logo, the SEO. Cut your branch from current `main` and merge back into `main` when the change has been reviewed.
+> The long-lived working branch `claude/website-plan-messages-qp0ofw` is **retired**. Everything it held was merged into `main`. Do not push to it, do not branch from it, and do not send anyone its preview link — it stops being the current site the moment that merge lands.
 
-**Do not merge to `main`, and do not open pull requests, unless asked.** Working branches stay open for a long time here, deliberately. The branch's Vercel preview *is* the review environment — the UAT the site is judged on — and it is where Tatjanizza and Dragan look at the work. `main` is production; getting there is a decision taken later and separately, not the natural end of a piece of work.
+**The workflow is: short-lived branch → Vercel preview → pull request → `main`.**
 
-Three things follow, and they change how you should behave:
+```bash
+git switch -c short-description   # from current main
+# ... work ...
+./scripts/preflight.sh
+git push -u origin short-description
+```
 
-- **"Ready to merge" is not the finish line. "The preview is right" is.** Do not chase a mergeable state, do not tidy history for a future merge, do not propose a PR as the next step when a task is done. Give the preview link.
-- **A red preview is a broken environment, not a failed build.** People are using that URL to look at the site. Fix it with the urgency of a broken staging box, not of a CI annoyance.
-- **Long-lived branches drift.** Merge `main` *into* the working branch when `main` moves — never the reverse — so the branch keeps whatever landed there. Never rebase or force-push a branch other people have checked out.
+Every branch gets a public preview at `https://tatjanizza-git-<branch>-kaidx.vercel.app`. That preview is what Tatjanizza and Dragan look at before anything is published — "the preview is right" is still what finishes a piece of work, but now the next step after that is a pull request, not an open-ended branch.
 
-### The trap this creates
+Three things follow:
 
-`main` goes stale while the working branch carries the real state. Anything cut fresh from `main` — a new branch for a new piece of work — inherits **old tooling and old rules**: an older `scripts/preflight.sh`, an older `edit-site` skill, an older copy of this file.
-
-So: **branch from the current working branch, not from `main`**, unless you have a specific reason to start from production. If you do need to start from `main`, bring the working branch's `scripts/`, `.claude/` and `CLAUDE.md` across first, or you will be checking your work with a version that has known bugs in it.
-
-To limit the damage, `main` is kept current for **tooling and documentation only** — this file, `CONTRIBUTING.md`, `.claude/` and `scripts/` are copied across whenever they change, so a session that lands on `main` still gets working rules and a working check. **Site source and content are not**: `main` is the site as last published, and the working branch is the site as it is becoming. Never port `app/`, `components/`, `content/`, `lib/`, `styles.css` or `tina/` to `main` as a side effect of syncing the rules — publishing is a separate, deliberate decision.
+- **A red preview is a broken review environment, not a CI annoyance.** People are using that URL to look at the change. Fix it with that urgency.
+- **A red `main` is a broken public site.** `main` deploys straight to production with no CI gate, which is the whole reason for the check below.
+- **Long-lived branches drift.** Keep branches short. If one does live a while, merge `main` *into* it — never rebase or force-push a branch other people may have checked out. A merge commit is the right answer here.
 
 ## Never push a broken build
 
@@ -45,7 +44,7 @@ It installs deps, lints, then runs the same build Vercel runs — schema validat
 
 ## Where the starter examples went
 
-The TinaCMS starter content (demo posts, authors, tags, testimonial avatars) was removed from the working branch in `31fb48b`; it is still present on `main`, which has not caught up yet. Either way the copy to read from is the frozen **`demo-backup`** branch — `main` at `7f0a6cc` — because that content is the only worked example in the repo of how the content layer is shaped: post frontmatter, `author`/`tags` serialising as file paths rather than slugs, a post in a subfolder, the custom rich-text templates in use, and one page using every stock block at once.
+The TinaCMS starter content (demo posts, authors, tags, testimonial avatars) was removed in `31fb48b` and is no longer anywhere on `main`. The copy to read from is the frozen **`demo-backup`** branch — `main` at `7f0a6cc` — because that content is the only worked example in the repo of how the content layer is shaped: post frontmatter, `author`/`tags` serialising as file paths rather than slugs, a post in a subfolder, the custom rich-text templates in use, and one page using every stock block at once.
 
 Read from it without merging: `git show demo-backup:content/posts/learning-about-components.mdx`. The branch's own `DEMO-BACKUP.md` says what each file is worth reading for. Never merge that branch into `main`.
 
