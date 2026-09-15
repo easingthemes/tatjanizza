@@ -93,13 +93,14 @@ Bad: *"Build je pao zbog zauzetog porta 4001, pokusacu na drugom portu."*
    - `content/posts/*.mdx` — blog posts
    - `content/global/index.json` — site name, header, footer, social links
    - `public/uploads/` — images
-3. **Never work on `main`.** Use the long-lived working branch the site is
-   being built on — the one whose preview she has been looking at — not a fresh
-   branch per edit. Her changes need to show up alongside everyone else's on the
-   same preview; a branch of her own would show her edit against an old site and
-   confuse her. Only start a new branch if she asks for something deliberately
-   kept apart, and never cut it from `main` (see CLAUDE.md — `main` is stale by
-   design and carries older tooling).
+3. **Never work on `main`.** `main` is the published site — a push there goes
+   straight to www.tatjanizza.com with no review. Cut a short branch from
+   current `main` instead (`git switch -c tz-<short-description>`) so she gets
+   a preview link to look at first. `main` is the up-to-date base now, so a
+   fresh branch shows her edit against the real site.
+   If she has an edit in flight on a branch that is not merged yet, keep
+   working on that same branch rather than starting another one — otherwise
+   she sees her two changes on two different links and gets confused.
 4. **Run `./scripts/preflight.sh`.** Do not skip it. Do not push on exit 1.
 5. **Commit** with a plain first line describing the change in English, and
    this trailer so it's clear later who asked for it:
@@ -115,6 +116,10 @@ Bad: *"Build je pao zbog zauzetog porta 4001, pokusacu na drugom portu."*
    same time — a rejected push usually means someone else pushed while you were
    working, not that anything is wrong. See *Other people are working too*.
 7. **Watch the build** (next section), then report back.
+
+Publishing her change to www.tatjanizza.com means merging the branch into
+`main`, and that is not your call or hers to make in passing — it is Dragan's.
+Give her the preview link and leave it there.
 
 ## After the push
 
@@ -183,9 +188,9 @@ is normal. Expect it, and never treat it as an error to report to her.
 - **The branch may have moved in ways you did not expect** — content deleted,
   files renamed. Re-run the check rather than assuming your last green result
   still holds.
-- **That branch is also what everyone is reviewing.** It is the shared preview,
-  not your workspace. Leaving it red spoils the site for whoever opens the link
-  next, so never walk away from a failed check.
+- **The branch is also what she is reviewing.** Its preview is the link you
+  gave her. Leaving it red spoils the page for whoever opens that link next, so
+  never walk away from a failed check.
 
 ## Things that will bite you
 

@@ -66,6 +66,10 @@ git switch -c short-description
 git push -u origin short-description
 ```
 
+Branch from current `main` — it is the up-to-date base. Once the preview looks right, merge back
+with a pull request. (The long-lived `claude/website-plan-messages-qp0ofw` branch that the site was
+built on is retired; everything it carried is in `main`. Don't branch from it.)
+
 Commit messages: a `type: summary` first line (`feat:`, `fix:`, `docs:`, `chore:`), then a body
 explaining *why* if it isn't obvious. Keep unrelated changes in separate commits.
 
@@ -155,20 +159,6 @@ in the collection schema. Only doing one of the two is the usual mistake.
 Tailwind v4, configured entirely in `styles.css` via `@theme inline` and CSS custom properties in
 oklch. **There is no `tailwind.config.js`** — don't create one. shadcn/ui is set up in
 `components.json` (new-york style, lucide icons); generated primitives go in `components/ui/`.
-
-## Restoring the real site
-
-The site currently shows a temporary coming-soon splash. To bring back the real home page, reverse
-three things:
-
-1. `app/page.tsx` — delete the `<ComingSoon />` render, uncomment the Tina-driven `Home` below it
-   (including `export const revalidate = 300`)
-2. `components/layout/layout.tsx` — uncomment the `Header`/`Footer` imports and their JSX, and put
-   `pt-20` back on `<main>` (it clears the fixed header)
-3. Delete `components/coming-soon.tsx`
-
-Two translations in that component's `PHRASES` array are marked `UNVERIFIED` (Akkadian, Phoenician)
-and several others are best-effort. They need Tatjana's review before anyone treats them as correct.
 
 ## Gotchas worth knowing
 

@@ -60,14 +60,6 @@ Upload images through the editor's media browser. A few things worth knowing:
 - Every image should get **alt text** — a short description of what's in it. It's what people using
   a screen reader hear, and it's what search engines read.
 
-## One thing to know right now
-
-**The home page is currently replaced by a temporary "coming soon" screen.**
-
-That screen is built in code, not in the CMS. So if you edit the home page in the editor, your
-changes are saved correctly but **won't show on the live site** until the real home page is switched
-back on. Everything else — blog posts, the About page — behaves normally.
-
 ## Things to leave alone
 
 Under **Global** you'll find site-wide settings: the site name, the navigation links, the social

@@ -10,12 +10,6 @@ with all content editable through a visual CMS rather than by editing code.
 | Content editing | https://www.tatjanizza.com/admin |
 | Music | [Spotify](https://open.spotify.com/artist/09tBWDb9mvGH9ls4c2ovDr) |
 
-> [!IMPORTANT]
-> **The site currently shows a temporary "coming soon" splash.** `app/page.tsx` renders
-> `components/coming-soon.tsx` and deliberately bypasses the site layout; `<Header>` and `<Footer>`
-> are commented out site-wide in `components/layout/layout.tsx`. The real Tina-driven home page is
-> commented out in `app/page.tsx`, ready to restore. See [CONTRIBUTING.md](./CONTRIBUTING.md#restoring-the-real-site).
-
 ## Stack
 
 - **[Next.js 15](https://nextjs.org)** App Router, React 18, TypeScript
