@@ -8,6 +8,23 @@ import React from 'react';
 import { useLayout } from './layout/layout-context';
 
 export const IconOptions = {
+  /*
+   * Tatjanizza's mark. The eight-pointed star of Ishtar — Babylonian goddess of
+   * sexual love — drawn with the proportions of the AI sparkle: long cardinal
+   * points, short diagonals, sides pinched toward the centre. The two symbols
+   * are the same geometry four thousand years apart, which is the whole idea.
+   * The almond cut out of the middle is the body in it, and reads as an eye.
+   */
+  Tatjanizza: (props: any) => (
+    <svg {...props} viewBox='0 0 64 64' fill='none' xmlns='http://www.w3.org/2000/svg'>
+      <title>Tatjanizza</title>
+      <path
+        d='M32 2 Q34.1 26.9 46.9 17.2 Q37.1 29.9 62 32 Q37.1 34.1 46.9 46.9 Q34.1 37.1 32 62 Q29.9 37.1 17.2 46.9 Q26.9 34.1 2 32 Q26.9 29.9 17.2 17.2 Q29.9 26.9 32 2 Z M32 24.5 Q38.5 32 32 39.5 Q25.5 32 32 24.5 Z'
+        fill='currentColor'
+        fillRule='evenodd'
+      />
+    </svg>
+  ),
   Tina: (props: any) => (
     <svg {...props} viewBox='0 0 66 80' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <title>Tina</title>
@@ -69,6 +86,12 @@ const iconColorClass: {
   white: {
     regular: 'text-white opacity-80',
     circle: 'bg-white-400 dark:bg-white-500 text-white-50',
+  },
+  // Points at the site's own palette (--primary is --tz-gold) rather than a
+  // stock Tailwind hue, so the mark matches the gold hairlines around it.
+  gold: {
+    regular: 'text-primary',
+    circle: 'bg-primary text-background',
   },
 };
 

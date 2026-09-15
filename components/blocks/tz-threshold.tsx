@@ -1,0 +1,313 @@
+'use client';
+import React from 'react';
+import Image from 'next/image';
+import type { Template } from 'tinacms';
+import { tinaField } from 'tinacms/dist/react';
+import { PageBlocksTzThreshold } from '../../tina/__generated__/types';
+
+/**
+ * The threshold.
+ *
+ * One word falling through the languages the project moves through, over a rain of
+ * glyphs. Descended from the Matrix splash this site launched with, with the two
+ * things that made it a wall removed: it is a section rather than a page, and there
+ * is nothing to click. A visitor lands in it and scrolls out of it.
+ *
+ * Gold on void rather than the splash's Matrix green, so the door belongs to the house
+ * behind it. The rain mixes Greek and Hebrew letterforms into the katakana, which is
+ * nearer the argument the songs make than a pure Matrix homage.
+ *
+ * The word is Prisustvo — Presence. Akkadian, Phoenician and Sumerian are absent from
+ * the list on the home page on purpose: docs/plan/05-open-questions.md says not to
+ * guess those, and the splash this descends from shipped two of them marked
+ * UNVERIFIED. The phrases are an editable field, so they can be added without a
+ * developer once the words are confirmed. (Kept here rather than as a comment in
+ * home.mdx, which Tina rewrites — and silently drops comments from — on every save.)
+ */
+
+const GLYPHS =
+  'アカサタナハマヤラワイキシチニヒミリヰウクスツヌフムユルエケセテネヘメレヱオコソトノホモヨロヲ' +
+  'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ' +
+  'אבגדהוזחטיכלמנסעפצקרשת' +
+  '0123456789';
+
+const HOLD_MS = 2600;
+const SCRAMBLE_MS = 700;
+
+const prefersReducedMotion = () => typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/**
+ * Rain on a canvas sized to its own section, not the window.
+ *
+ * Paused while scrolled out of view: this sits at the top of the home page, and a
+ * canvas animating under three screens of text below it is pure battery cost.
+ */
+const Rain = () => {
+  const canvasRef = React.useRef<HTMLCanvasElement>(null);
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas || prefersReducedMotion()) return;
+
+    const ctx = canvas.getContext('2d');
+    const parent = canvas.parentElement;
+    if (!ctx || !parent) return;
+
+    const FONT_SIZE = 16;
+    let columns: number[] = [];
+    let width = 0;
+    let height = 0;
+    let frame = 0;
+    let raf = 0;
+    let visible = true;
+    let scrolling = 0;
+
+    const resize = () => {
+      const rect = parent.getBoundingClientRect();
+      width = rect.width;
+      height = rect.height;
+      if (!width || !height) return;
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      // One falling stream per column, each starting at a random height
+      columns = new Array(Math.ceil(width / FONT_SIZE))
+        .fill(0)
+        .map(() => Math.random() * (height / FONT_SIZE));
+    };
+
+    const draw = () => {
+      raf = requestAnimationFrame(draw);
+      // Repainting a full-screen canvas while the user drags makes the scroll stutter
+      // on a phone. The rain holds still for a moment and picks up where it stopped.
+      if (!visible || scrolling || !width) return;
+      // Throttle to ~20fps; the effect reads better slow and costs less battery
+      if (frame++ % 3 !== 0) return;
+
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.font = `${FONT_SIZE}px ui-monospace, monospace`;
+      ctx.fillStyle = 'rgba(212, 175, 90, 0.55)';
+
+      columns.forEach((y, i) => {
+        ctx.fillText(GLYPHS[Math.floor(Math.random() * GLYPHS.length)], i * FONT_SIZE, y * FONT_SIZE);
+        columns[i] = y * FONT_SIZE > height && Math.random() > 0.975 ? 0 : y + 1;
+      });
+    };
+
+    const ro = new ResizeObserver(resize);
+    ro.observe(parent);
+
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    io.observe(parent);
+
+    let settle = 0;
+    const onScroll = () => {
+      scrolling = 1;
+      clearTimeout(settle);
+      settle = window.setTimeout(() => {
+        scrolling = 0;
+      }, 180);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    resize();
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(settle);
+      window.removeEventListener('scroll', onScroll);
+      ro.disconnect();
+      io.disconnect();
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} aria-hidden='true' className='pointer-events-none absolute inset-0 opacity-50' />;
+};
+
+type Phrase = { lang?: string | null; text?: string | null };
+
+/** Cycles the phrases, scrambling each one into place. */
+const Scrambled = ({ phrases, label }: { phrases: Phrase[]; label: string }) => {
+  const [index, setIndex] = React.useState(0);
+  const phrase = phrases[index % phrases.length];
+  const target = phrase?.text ?? '';
+  const [display, setDisplay] = React.useState(target);
+
+  React.useEffect(() => {
+    if (!target) return;
+
+    if (prefersReducedMotion()) {
+      setDisplay(target);
+      const next = setTimeout(() => setIndex((i) => i + 1), HOLD_MS);
+      return () => clearTimeout(next);
+    }
+
+    const start = performance.now();
+    let raf = 0;
+
+    const tick = (now: number) => {
+      const progress = Math.min((now - start) / SCRAMBLE_MS, 1);
+      // Reveal left-to-right; unrevealed characters keep flickering
+      const settled = Math.floor(progress * target.length);
+      setDisplay(
+        target
+          .split('')
+          .map((char, i) => (i < settled || char === ' ' ? char : GLYPHS[Math.floor(Math.random() * GLYPHS.length)]))
+          .join('')
+      );
+      if (progress < 1) raf = requestAnimationFrame(tick);
+      else setDisplay(target);
+    };
+
+    raf = requestAnimationFrame(tick);
+    const next = setTimeout(() => setIndex((i) => i + 1), HOLD_MS);
+
+    return () => {
+      cancelAnimationFrame(raf);
+      clearTimeout(next);
+    };
+  }, [target]);
+
+  return (
+    <p
+      lang={phrase?.lang || undefined}
+      dir='auto'
+      // Screen readers get the word once, in the site's language, rather than a
+      // stream of half-scrambled strings as the animation runs.
+      aria-label={label}
+      className='text-center font-[family-name:var(--font-mono)] text-[clamp(1.5rem,6vw,3rem)] tracking-[0.3em] text-[var(--tz-gold)]'
+      style={{ textShadow: '0 0 10px rgba(212,175,90,0.6), 0 0 30px rgba(212,175,90,0.3)' }}
+    >
+      <span aria-hidden='true'>{display}</span>
+    </p>
+  );
+};
+
+export const TzThreshold = ({ data }: { data: PageBlocksTzThreshold }) => {
+  const phrases = (data.phrases ?? []).filter((p): p is NonNullable<typeof p> => Boolean(p?.text));
+  if (!phrases.length) return null;
+
+  return (
+    // -mt-20 pulls the section under the fixed header; mb-20 gives the next block back
+    // what its own -mt-20 takes, so the two sit flush instead of overlapping.
+    <section className='relative -mt-20 mb-20 flex min-h-[calc(100svh+5rem)] flex-col items-center justify-center gap-8 overflow-hidden bg-[var(--tz-void)] px-6 pt-20'>
+      <Rain />
+
+      {data.image?.src && (
+        <div className='relative shrink-0' data-tina-field={tinaField(data.image, 'src')}>
+          <Image
+            src={data.image.src}
+            alt={data.image.alt || ''}
+            width={1024}
+            height={1024}
+            priority
+            sizes='(max-width: 640px) 70vw, 380px'
+            className='h-auto w-[70vw] max-w-[380px] rounded-full border border-[var(--tz-gold)]/30 shadow-[0_0_60px_rgba(212,175,90,0.25)]'
+          />
+        </div>
+      )}
+
+      <div className='relative flex min-h-24 items-center' data-tina-field={tinaField(data, 'phrases')}>
+        <Scrambled phrases={phrases} label={data.label || phrases[0].text || ''} />
+      </div>
+
+      {data.line && (
+        // Deliberately untranslated. The word above changes language every few seconds;
+        // this does not. Serif because the site reads serif as the human layer and mono
+        // as the machine one, and this is the one human sentence in the section.
+        <p
+          lang={data.lineLang || undefined}
+          className='relative mt-8 text-center font-[family-name:var(--font-serif)] text-[clamp(1.05rem,2.6vw,1.5rem)] italic text-[var(--tz-parchment)]/60'
+          data-tina-field={tinaField(data, 'line')}
+        >
+          {data.line}
+        </p>
+      )}
+
+      {data.hint && (
+        <p
+          className='tz-mono absolute bottom-10 animate-pulse text-[var(--tz-gold-dim)]'
+          data-tina-field={tinaField(data, 'hint')}
+        >
+          {data.hint}
+        </p>
+      )}
+    </section>
+  );
+};
+
+export const tzThresholdBlockSchema: Template = {
+  name: 'tzThreshold',
+  label: 'TZ — Threshold',
+  ui: {
+    defaultItem: {
+      label: 'Presence',
+      hint: 'scroll',
+      line: 'prisustvo se pamti',
+      lineLang: 'sr',
+      phrases: [{ lang: 'en', text: 'PRESENCE' }],
+    },
+    itemProps: () => ({ label: 'Threshold' }),
+  },
+  fields: [
+    {
+      type: 'string',
+      label: 'The word, in plain English',
+      name: 'label',
+      description: 'Read aloud by screen readers instead of the animation. Not shown on the page.',
+    },
+    {
+      type: 'object',
+      label: 'Image in the middle',
+      name: 'image',
+      fields: [
+        { name: 'src', label: 'Image', type: 'image' },
+        { name: 'alt', label: 'Alt text', type: 'string' },
+      ],
+    },
+    {
+      type: 'string',
+      label: 'The line that does not change',
+      name: 'line',
+      description: 'Stays put while the word above moves through the languages. Left untranslated on purpose.',
+    },
+    {
+      type: 'string',
+      label: 'Language of that line',
+      name: 'lineLang',
+      description: 'e.g. sr. Lets browsers and screen readers pronounce it correctly.',
+    },
+    {
+      type: 'string',
+      label: 'Scroll hint',
+      name: 'hint',
+      description: 'Small mark at the bottom. Leave empty to hide it.',
+    },
+    {
+      type: 'object',
+      label: 'The word, language by language',
+      name: 'phrases',
+      list: true,
+      ui: {
+        itemProps: (item) => ({ label: [item?.lang, item?.text].filter(Boolean).join(' - ') }),
+      },
+      fields: [
+        {
+          type: 'string',
+          label: 'Language code',
+          name: 'lang',
+          description: 'e.g. en, sr-Cyrl, he, cy, sa, grc, non. Lets browsers pick the right font and text direction.',
+        },
+        { type: 'string', label: 'The word', name: 'text' },
+      ],
+    },
+  ],
+};
