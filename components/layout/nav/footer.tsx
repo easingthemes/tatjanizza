@@ -23,7 +23,17 @@ export const Footer = () => {
             <span className="self-center text-muted-foreground text-sm ml-2">© {new Date().getFullYear()} {header?.name}, All rights reserved</span>
           </div>
 
-          <div className="order-first flex justify-center gap-6 text-sm md:order-last md:justify-end">
+          <div className="order-first flex flex-wrap items-center justify-center gap-6 text-sm md:order-last md:justify-end">
+            {/* Spelled out rather than hidden behind an envelope: this is the address a
+                journalist copies, and an icon gives them nothing to copy. */}
+            {footer?.email && (
+              <a
+                href={`mailto:${footer.email}`}
+                className="font-[family-name:var(--font-mono)] text-muted-foreground hover:text-primary"
+              >
+                {footer.email}
+              </a>
+            )}
             {footer?.social?.map((link, index) => (
               <Link key={`${link!.icon}${index}`} href={link!.url!} target="_blank" rel="noopener noreferrer" >
                 <Icon data={{ ...link!.icon, size: 'small' }} className="text-muted-foreground hover:text-primary block" />
