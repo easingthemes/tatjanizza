@@ -11,7 +11,7 @@ export const metadata: Metadata = pageMetadata({
   seo: {
     title: 'Poetry First — the poems behind Two Million Years',
     description:
-      'Before the voice. Before the machine. There was the poem. The texts Tatjanizza wrote in 2025, before any of them became music.',
+      'Poetry first. Then we taught the machine to sing. The poems Tatjanizza wrote in 2025, before any of them became music.',
   },
   path: '/poetry',
 });
