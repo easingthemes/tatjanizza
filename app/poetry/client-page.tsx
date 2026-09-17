@@ -24,9 +24,11 @@ export default function PoetryClientPage(props: { data: any; variables: any; que
 
         <h1 className='tz-display mt-4 text-[clamp(2.2rem,6vw,4rem)] text-[var(--tz-parchment)]'>Poetry First</h1>
 
-        <p className='tz-prose mt-6 max-w-xl text-[1.125rem] italic'>
-          Before the voice. Before the machine. There was the poem.
-        </p>
+        {/* Her line, and better than the one it replaced: that one put the machine
+            after the poem and therefore beneath it. This one says we taught it — the
+            machine is what the writing gained, not what spoiled its precedence. The
+            heading above is the first beat, so it is not repeated here. */}
+        <p className='tz-prose mt-6 max-w-xl text-[1.125rem] italic'>Then we taught the machine to sing.</p>
 
         <ul className='mt-16 border-t tz-rule'>
           {poems.map((poem: any) => (
