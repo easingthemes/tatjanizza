@@ -45,6 +45,25 @@ export default function PoemClientPage(props: { data: any; variables: any; query
           </div>
         )}
 
+        {poem.translation && (
+          // Under the poem, not beside it — a phone has no facing page. Quieter than the
+          // original on purpose: the poem is the work, the translation is a service to
+          // the reader, and setting them identically would claim they are the same thing.
+          <section className='mt-20 border-t tz-rule pt-10'>
+            {poem.translationLabel && (
+              <p className='tz-mono' data-tina-field={tinaField(poem, 'translationLabel')}>
+                {poem.translationLabel}
+              </p>
+            )}
+            <div
+              className='mt-6 whitespace-pre-wrap font-[family-name:var(--font-serif)] text-[clamp(1rem,2vw,1.25rem)] leading-[1.75] text-[var(--tz-parchment)]/65'
+              data-tina-field={tinaField(poem, 'translation')}
+            >
+              {poem.translation}
+            </div>
+          </section>
+        )}
+
         {(poem.languages || poem.year || poem.listen) && (
           <footer className='mt-20 flex flex-wrap items-center gap-x-6 gap-y-2 border-t tz-rule pt-6'>
             {poem.languages && (
