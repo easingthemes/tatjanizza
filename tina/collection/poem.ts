@@ -40,6 +40,19 @@ const Poem: Collection = {
     },
     {
       type: 'string',
+      name: 'translation',
+      label: 'Translation',
+      description: 'Optional. Sits under the poem, quieter. Line breaks kept, same as the poem.',
+      ui: { component: 'textarea' },
+    },
+    {
+      type: 'string',
+      name: 'translationLabel',
+      label: 'Translation label',
+      description: 'Small heading above the translation, e.g. In English.',
+    },
+    {
+      type: 'string',
       name: 'languages',
       label: 'Languages',
       description: 'Shown small at the foot of the poem, e.g. Serbian · Akkadian',
