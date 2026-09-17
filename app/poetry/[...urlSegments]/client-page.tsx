@@ -1,0 +1,76 @@
+'use client';
+import React from 'react';
+import Link from 'next/link';
+import { useTina } from 'tinacms/dist/react';
+import { tinaField } from 'tinacms/dist/react';
+
+/**
+ * One poem.
+ *
+ * `whitespace-pre-wrap` is the whole design: the body is printed exactly as written,
+ * line breaks, blank lines, indentation and mixed scripts intact. Nothing is added
+ * around it — no commentary, no pull quotes, no explanation of what to feel. The
+ * languages and the year sit small at the foot, where a reader looks only if they ask.
+ */
+export default function PoemClientPage(props: { data: any; variables: any; query: string }) {
+  const { data } = useTina({ query: props.query, variables: props.variables, data: props.data });
+  const poem = data.poem;
+
+  return (
+    <article className='border-b tz-rule'>
+      <div className='mx-auto max-w-3xl px-6 py-24 sm:py-32'>
+        <Link href='/poetry' className='tz-mono transition-colors hover:text-[var(--tz-gold)]'>
+          ← Poetry first
+        </Link>
+
+        <h1
+          className='tz-display mt-10 text-[clamp(2rem,5vw,3.25rem)] text-[var(--tz-parchment)]'
+          data-tina-field={tinaField(poem, 'title')}
+        >
+          {poem.title}
+        </h1>
+
+        {poem.subtitle && (
+          <p className='tz-prose mt-2 text-[1.125rem] italic' data-tina-field={tinaField(poem, 'subtitle')}>
+            {poem.subtitle}
+          </p>
+        )}
+
+        {poem.body && (
+          <div
+            className='mt-14 whitespace-pre-wrap font-[family-name:var(--font-serif)] text-[clamp(1.125rem,2.4vw,1.5rem)] leading-[1.75] text-[var(--tz-parchment)]'
+            data-tina-field={tinaField(poem, 'body')}
+          >
+            {poem.body}
+          </div>
+        )}
+
+        {(poem.languages || poem.year || poem.listen) && (
+          <footer className='mt-20 flex flex-wrap items-center gap-x-6 gap-y-2 border-t tz-rule pt-6'>
+            {poem.languages && (
+              <span className='tz-mono' data-tina-field={tinaField(poem, 'languages')}>
+                {poem.languages}
+              </span>
+            )}
+            {poem.year && (
+              <span className='tz-mono' data-tina-field={tinaField(poem, 'year')}>
+                {poem.year}
+              </span>
+            )}
+            {poem.listen && (
+              <a
+                href={poem.listen}
+                target='_blank'
+                rel='noreferrer'
+                className='tz-mono text-[var(--tz-gold)] transition-opacity hover:opacity-70'
+                data-tina-field={tinaField(poem, 'listen')}
+              >
+                Listen →
+              </a>
+            )}
+          </footer>
+        )}
+      </div>
+    </article>
+  );
+}
