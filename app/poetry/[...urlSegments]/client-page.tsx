@@ -107,6 +107,24 @@ export default function PoemClientPage(props: { data: any; variables: any; query
           </section>
         )}
 
+        {poem.audio && (
+          // The third stage, on the page rather than at the end of a link. Poem, then
+          // lyrics, then the thing they became — the sequence the site argues for, all
+          // in one place. preload='none': nobody pays for it before pressing play.
+          <section className='mt-20 border-t tz-rule pt-10'>
+            <p className='tz-mono'>The song</p>
+            <audio
+              controls
+              preload='none'
+              src={poem.audio}
+              className='mt-6 h-10 w-full'
+              data-tina-field={tinaField(poem, 'audio')}
+            >
+              <track kind='captions' />
+            </audio>
+          </section>
+        )}
+
         {(poem.languages || poem.year || poem.listen) && (
           <footer className='mt-20 flex flex-wrap items-center gap-x-6 gap-y-2 border-t tz-rule pt-6'>
             {poem.languages && (
