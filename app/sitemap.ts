@@ -4,6 +4,20 @@ import { SITE_URL } from '@/lib/seo';
 
 export const revalidate = 3600;
 
+/** Collects every poem's breadcrumbs, following the connection cursors. */
+async function allPoemBreadcrumbs(): Promise<string[][]> {
+  let poems = await client.queries.poemConnection();
+  const edges = [...(poems.data.poemConnection.edges ?? [])];
+
+  while (poems.data.poemConnection.pageInfo.hasNextPage) {
+    poems = await client.queries.poemConnection({ after: poems.data.poemConnection.pageInfo.endCursor });
+    if (!poems.data.poemConnection.edges) break;
+    edges.push(...poems.data.poemConnection.edges);
+  }
+
+  return edges.map((edge) => edge?.node?._sys.breadcrumbs ?? []).filter((crumbs) => crumbs.length > 0);
+}
+
 /** Collects every page document's breadcrumbs, following the connection cursors. */
 async function allPageBreadcrumbs(): Promise<string[][]> {
   let pages = await client.queries.pageConnection();
@@ -34,6 +48,7 @@ async function allPageBreadcrumbs(): Promise<string[][]> {
  */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const breadcrumbs = await allPageBreadcrumbs();
+  const poems = await allPoemBreadcrumbs();
 
   const entries = await Promise.all(
     breadcrumbs.map(async (crumbs) => {
@@ -51,5 +66,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })
   );
 
-  return entries.filter((entry): entry is NonNullable<typeof entry> => entry !== null);
+  // Poetry First and the poems. They are the only pages carrying text that exists
+  // nowhere else, so leaving them out of the sitemap wastes the best reason anyone
+  // has to find this site.
+  const poetry = [
+    { url: `${SITE_URL}/poetry`, lastModified: new Date(), changeFrequency: 'monthly' as const, priority: 0.9 },
+    ...poems.map((crumbs) => ({
+      url: `${SITE_URL}/poetry/${crumbs.join('/')}`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.8,
+    })),
+  ];
+
+  return [...entries.filter((entry): entry is NonNullable<typeof entry> => entry !== null), ...poetry];
 }
