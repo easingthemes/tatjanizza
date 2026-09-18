@@ -12,6 +12,33 @@ import { tinaField } from 'tinacms/dist/react';
  * around it — no commentary, no pull quotes, no explanation of what to feel. The
  * languages and the year sit small at the foot, where a reader looks only if they ask.
  */
+/** A whole line wrapped in [] or (): a stage direction, not a sung line. */
+const isDirection = (line: string) => /^\s*[\[(].*[\])]\s*$/.test(line);
+
+/**
+ * The lyrics exactly as they went into Suno, stage directions included.
+ *
+ * Nothing is removed — that text is the primary document, the thing that actually
+ * existed and actually produced the song. The directions are set apart typographically
+ * instead: smaller, dimmer, italic, the way a printed libretto sets speech in roman
+ * and stage business in italics. An archive marks; it does not delete.
+ */
+const Lyrics = ({ text }: { text: string }) => (
+  <div className='mt-6 font-[family-name:var(--font-serif)] text-[clamp(1rem,2vw,1.25rem)] leading-[1.75] text-[var(--tz-parchment)]/75'>
+    {text.split('\n').map((line, i) =>
+      isDirection(line) ? (
+        <p key={i} className='tz-mono my-1 pl-6 text-[0.8em] not-italic text-[var(--tz-gold-dim)]'>
+          {line.trim()}
+        </p>
+      ) : (
+        <p key={i} className='whitespace-pre-wrap'>
+          {line || '\u00A0'}
+        </p>
+      )
+    )}
+  </div>
+);
+
 export default function PoemClientPage(props: { data: any; variables: any; query: string }) {
   const { data } = useTina({ query: props.query, variables: props.variables, data: props.data });
   const poem = data.poem;
@@ -37,8 +64,12 @@ export default function PoemClientPage(props: { data: any; variables: any; query
         )}
 
         {poem.body && (
+          <p className='tz-mono mt-14'>The poem</p>
+        )}
+
+        {poem.body && (
           <div
-            className='mt-14 whitespace-pre-wrap font-[family-name:var(--font-serif)] text-[clamp(1.125rem,2.4vw,1.5rem)] leading-[1.75] text-[var(--tz-parchment)]'
+            className='mt-6 whitespace-pre-wrap font-[family-name:var(--font-serif)] text-[clamp(1.125rem,2.4vw,1.5rem)] leading-[1.75] text-[var(--tz-parchment)]'
             data-tina-field={tinaField(poem, 'body')}
           >
             {poem.body}
@@ -60,6 +91,18 @@ export default function PoemClientPage(props: { data: any; variables: any; query
               data-tina-field={tinaField(poem, 'translation')}
             >
               {poem.translation}
+            </div>
+          </section>
+        )}
+
+        {poem.lyrics && (
+          <section className='mt-20 border-t tz-rule pt-10'>
+            <p className='tz-mono'>The lyrics</p>
+            <p className='tz-prose mt-2 max-w-xl text-[0.9375rem]'>
+              As given to the machine, unedited.
+            </p>
+            <div data-tina-field={tinaField(poem, 'lyrics')}>
+              <Lyrics text={poem.lyrics} />
             </div>
           </section>
         )}

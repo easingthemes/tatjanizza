@@ -53,6 +53,13 @@ const Poem: Collection = {
     },
     {
       type: 'string',
+      name: 'lyrics',
+      label: 'Lyrics',
+      description: 'The text exactly as it went into Suno, stage directions and all. Not edited.',
+      ui: { component: 'textarea' },
+    },
+    {
+      type: 'string',
       name: 'languages',
       label: 'Languages',
       description: 'Shown small at the foot of the poem, e.g. Serbian · Akkadian',
