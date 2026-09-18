@@ -72,6 +72,12 @@ const Poem: Collection = {
     },
     {
       type: 'string',
+      name: 'audio',
+      label: 'The song',
+      description: 'Path to the audio in uploads, e.g. /uploads/song.mp3. Plays at the foot of the poem.',
+    },
+    {
+      type: 'string',
       name: 'listen',
       label: 'Listen link',
       description: 'Where the song made from this poem can be heard. Leave empty if there is none yet.',
