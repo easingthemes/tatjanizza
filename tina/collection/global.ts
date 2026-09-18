@@ -67,6 +67,12 @@ const Global: Collection = {
       name: "footer",
       fields: [
         {
+          type: "string",
+          label: "Contact email",
+          name: "email",
+          description: "Shown in the footer on every page. Leave empty to hide it.",
+        },
+        {
           type: "object",
           label: "Social Links",
           name: "social",

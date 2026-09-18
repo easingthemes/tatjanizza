@@ -58,6 +58,7 @@ type TrackInput = {
   ancientLayer?: string | null;
   released?: string | null;
   link?: string | null;
+  audio?: string | null;
 } | null;
 
 /**
@@ -102,6 +103,10 @@ export const albumJsonLd = ({
       ...(track.ancientLayer ? { about: { '@type': 'Language', name: track.ancientLayer } } : {}),
       ...(toIsoDate(track.released) ? { datePublished: toIsoDate(track.released) } : {}),
       ...(track.link ? { url: track.link } : {}),
+      // A recording the page can actually play, said in the machine's own words.
+      ...(track.audio
+        ? { audio: { '@type': 'AudioObject', contentUrl: `${SITE_URL}${track.audio}`, encodingFormat: 'audio/mpeg' } }
+        : {}),
     })),
   };
 };
