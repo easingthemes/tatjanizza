@@ -20,9 +20,10 @@ export default function PoetryClientPage(props: { data: any; variables: any; que
   return (
     <section className='border-b tz-rule'>
       <div className='mx-auto max-w-5xl px-6 py-24 sm:py-32'>
-        <p className='tz-mono'>Poetry first</p>
-
-        <h1 className='tz-display mt-4 text-[clamp(2.2rem,6vw,4rem)] text-[var(--tz-parchment)]'>Poetry First</h1>
+        {/* No small label above the heading: it said "Poetry first" directly over a
+            heading reading Poetry First, which is the page introducing itself twice
+            before it has said anything. */}
+        <h1 className='tz-display text-[clamp(2.2rem,6vw,4rem)] text-[var(--tz-parchment)]'>Poetry First</h1>
 
         {/* Her line, and better than the one it replaced: that one put the machine
             after the poem and therefore beneath it. This one says we taught it — the
