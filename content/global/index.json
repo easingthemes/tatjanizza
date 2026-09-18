@@ -17,6 +17,10 @@
         "label": "Two Million Years"
       },
       {
+        "href": "/poetry",
+        "label": "Poetry First"
+      },
+      {
         "href": "/about",
         "label": "About"
       }
