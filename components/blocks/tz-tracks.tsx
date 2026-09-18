@@ -84,6 +84,22 @@ export const TzTracks = ({ data }: { data: PageBlocksTzTracks }) => {
                       {track.gloss}
                     </p>
                   )}
+
+                  {track?.audio && (
+                    // The browser's own player, not a custom one: it works without
+                    // JavaScript, it is keyboard and screen-reader native, and it will
+                    // still work in ten years. preload='none' matters — the file is
+                    // several megabytes and nobody should pay for it before pressing play.
+                    <audio
+                      controls
+                      preload='none'
+                      src={track.audio}
+                      className='mt-4 h-10 w-full max-w-xl pl-0 sm:pl-10'
+                      data-tina-field={tinaField(track, 'audio')}
+                    >
+                      <track kind='captions' />
+                    </audio>
+                  )}
                 </li>
               );
             })}
@@ -132,6 +148,12 @@ export const tzTracksBlockSchema: Template = {
         { type: 'string', label: 'Released', name: 'released' },
         { type: 'string', label: 'Gloss', name: 'gloss', ui: { component: 'textarea' } },
         { type: 'string', label: 'Link', name: 'link' },
+        {
+          type: 'string',
+          label: 'Audio file',
+          name: 'audio',
+          description: 'Path to an audio file in uploads, e.g. /uploads/song.mp3. Adds a player under this track.',
+        },
       ],
     },
   ],
