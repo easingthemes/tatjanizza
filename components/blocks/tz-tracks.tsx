@@ -74,6 +74,14 @@ export const TzTracks = ({ data }: { data: PageBlocksTzTracks }) => {
                         {track.released}
                       </span>
                     )}
+                    {track?.releasedAs && (
+                      // A reader who takes this list to a streaming service has to find
+                      // the record under the name it was actually filed with, not the one
+                      // it is called here. A catalogue that cannot be looked up is a claim.
+                      <span className='tz-mono' data-tina-field={tinaField(track, 'releasedAs')}>
+                        Released as “{track.releasedAs}”
+                      </span>
+                    )}
                   </div>
 
                   {track?.gloss && (
@@ -146,6 +154,12 @@ export const tzTracksBlockSchema: Template = {
           description: 'The language that appears in parts of the song — chorus, chant, whisper.',
         },
         { type: 'string', label: 'Released', name: 'released' },
+        {
+          type: 'string',
+          label: 'Released as',
+          name: 'releasedAs',
+          description: 'Only if the title on Spotify and the rest differs from the one above, e.g. AI-boran (Phoenician).',
+        },
         { type: 'string', label: 'Gloss', name: 'gloss', ui: { component: 'textarea' } },
         { type: 'string', label: 'Link', name: 'link' },
         {
