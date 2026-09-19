@@ -32,6 +32,16 @@ const Poem: Collection = {
       description: 'The title in the other language, if it has one. Shown under the title.',
     },
     {
+      type: 'object',
+      name: 'image',
+      label: 'Image',
+      description: 'Optional. Sits above the poem, full width. Nothing is cropped away at the sides.',
+      fields: [
+        { name: 'src', label: 'Image', type: 'image' },
+        { name: 'alt', label: 'Alt text', type: 'string', description: 'What the picture shows, for a reader who cannot see it.' },
+      ],
+    },
+    {
       type: 'string',
       name: 'body',
       label: 'The poem',
