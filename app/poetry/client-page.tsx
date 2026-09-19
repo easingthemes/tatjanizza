@@ -39,6 +39,11 @@ export default function PoetryClientPage(props: { data: any; variables: any; que
                   {poem.title}
                 </span>
                 {poem.subtitle && <span className='tz-prose ml-4 text-[1.0625rem]'>{poem.subtitle}</span>}
+                {/* Same words as the album page uses for the same fact — "within", not
+                    a bare language name, because a bare name beside a title would read
+                    as a claim that the poem itself is in Akkadian. It is not; the song
+                    carries it. */}
+                {poem.ancientLayer && <span className='tz-mono mt-2 block text-[var(--tz-ember)]'>{poem.ancientLayer} within</span>}
               </Link>
             </li>
           ))}
