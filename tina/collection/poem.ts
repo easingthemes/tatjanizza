@@ -70,6 +70,12 @@ const Poem: Collection = {
     },
     {
       type: 'string',
+      name: 'ancientLayer',
+      label: 'Historical language within',
+      description: 'The old tongue the song carries — Akkadian, Hebrew, Phoenician, Old Greek. Shown beside the title in the list.',
+    },
+    {
+      type: 'string',
       name: 'languages',
       label: 'Languages',
       description: 'Shown small at the foot of the poem, e.g. Serbian · Akkadian',
