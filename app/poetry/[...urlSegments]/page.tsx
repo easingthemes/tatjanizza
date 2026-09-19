@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: { params: Promise<{ urlSegmen
   const opening = (poem.body ?? '').split('\n').filter(Boolean).slice(0, 3).join(' / ').slice(0, 180);
 
   return pageMetadata({
-    seo: { title: `${poem.title} — a poem by Tatjanizza`, description: opening || undefined },
+    seo: { title: `${poem.title} — a poem by Tatjanizza`, description: opening || undefined, image: poem.image?.src },
     title: poem.title,
     path: `/poetry/${pathOf(urlSegments)}`,
   });

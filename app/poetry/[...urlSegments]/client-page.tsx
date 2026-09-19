@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useTina } from 'tinacms/dist/react';
 import { tinaField } from 'tinacms/dist/react';
 
@@ -61,6 +62,22 @@ export default function PoemClientPage(props: { data: any; variables: any; query
           <p className='tz-prose mt-2 text-[1.125rem] italic' data-tina-field={tinaField(poem, 'subtitle')}>
             {poem.subtitle}
           </p>
+        )}
+
+        {poem.image?.src && (
+          // Above the poem, not behind it. Shown whole at its own aspect ratio —
+          // nothing cropped, no type laid over it. A picture belonging to the poem is
+          // part of the record, not a background for the record.
+          <figure className='mt-12' data-tina-field={tinaField(poem.image, 'src')}>
+            <Image
+              src={poem.image.src}
+              alt={poem.image.alt || ''}
+              width={1448}
+              height={1086}
+              sizes='(min-width: 768px) 48rem, 100vw'
+              className='h-auto w-full rounded-sm'
+            />
+          </figure>
         )}
 
         {poem.body && (
