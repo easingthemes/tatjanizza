@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const SITE_URL = 'https://www.tatjanizza.com';
 export const SITE_NAME = 'Tatjanizza';
 export const SITE_DESCRIPTION =
-  'Music in ancient and modern tongues — Akkadian, Phoenician, Old Norse, Sanskrit, Old Greek, Hebrew, Welsh and Serbian.';
+  'Music in ancient and modern tongues — Akkadian, Phoenician, Old Norse, Sanskrit, Latin, Old Greek, Hebrew, Welsh and Serbian.';
 
 /** Fallback share image. Square, so it is declared as such rather than lied about as 1200x630. */
 export const DEFAULT_OG_IMAGE = { url: '/uploads/posts/main.jpg', width: 1024, height: 1024 };
