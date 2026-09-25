@@ -43,7 +43,13 @@ export default function PoetryClientPage(props: { data: any; variables: any; que
                     a bare language name, because a bare name beside a title would read
                     as a claim that the poem itself is in Akkadian. It is not; the song
                     carries it. */}
-                {poem.ancientLayer && <span className='tz-mono mt-2 block text-[var(--tz-ember)]'>{poem.ancientLayer} within</span>}
+                {(poem.written || poem.ancientLayer) && (
+                  <span className='tz-mono mt-2 block'>
+                    {poem.written}
+                    {poem.written && poem.ancientLayer && <span className='px-2 opacity-40'>·</span>}
+                    {poem.ancientLayer && <span className='text-[var(--tz-ember)]'>{poem.ancientLayer} within</span>}
+                  </span>
+                )}
               </Link>
             </li>
           ))}
