@@ -11,6 +11,7 @@ import { cn } from "@/lib/utils";
 import { DEFAULT_OG_IMAGE, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/seo";
 import { VideoDialogProvider } from "@/components/ui/VideoDialogContext";
 import VideoDialog from "@/components/ui/VideoDialog";
+import { Analytics } from "@vercel/analytics/next";
 
 import "@/styles.css";
 import { TailwindIndicator } from "@/components/ui/breakpoint-indicator";
@@ -101,6 +102,7 @@ export default function RootLayout({
           <VideoDialog />
         </VideoDialogProvider>
         <TailwindIndicator />
+        <Analytics />
       </body>
     </html>
   );
