@@ -142,7 +142,7 @@ export default function PoemClientPage(props: { data: any; variables: any; query
           </section>
         )}
 
-        {(poem.languages || poem.ancientLayer || poem.year || poem.listen) && (
+        {(poem.languages || poem.ancientLayer || poem.written || poem.listen) && (
           <footer className='mt-20 flex flex-wrap items-center gap-x-6 gap-y-2 border-t tz-rule pt-6'>
             {poem.languages && (
               <span className='tz-mono' data-tina-field={tinaField(poem, 'languages')}>
@@ -154,9 +154,9 @@ export default function PoemClientPage(props: { data: any; variables: any; query
                 {poem.ancientLayer} within
               </span>
             )}
-            {poem.year && (
-              <span className='tz-mono' data-tina-field={tinaField(poem, 'year')}>
-                {poem.year}
+            {poem.written && (
+              <span className='tz-mono' data-tina-field={tinaField(poem, 'written')}>
+                {poem.written}
               </span>
             )}
             {poem.listen && (

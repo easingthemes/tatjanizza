@@ -82,9 +82,9 @@ const Poem: Collection = {
     },
     {
       type: 'string',
-      name: 'year',
-      label: 'Year written',
-      description: 'The year of the poem, not of the recording.',
+      name: 'written',
+      label: 'Date written',
+      description: 'The day the poem was written, e.g. 8 July 2025. Not the day the song came out.',
     },
     {
       type: 'string',
