@@ -34,6 +34,18 @@ export const TzTracks = ({ data }: { data: PageBlocksTzTracks }) => {
             </h2>
           )}
 
+          {data.languages && (
+            // The list names one language per row, so a reader scrolling past never adds
+            // them up. This is the sum, in one line, in the same colour the rows use for
+            // the same fact — the arithmetic done for them rather than left as an exercise.
+            <p
+              className='tz-mono mt-6 text-[clamp(0.9375rem,2vw,1.125rem)] leading-[2] text-[var(--tz-ember)]'
+              data-tina-field={tinaField(data, 'languages')}
+            >
+              {data.languages}
+            </p>
+          )}
+
           {data.note && (
             <p className='tz-prose mt-4 text-[1.0625rem]' data-tina-field={tinaField(data, 'note')}>
               {data.note}
@@ -128,6 +140,12 @@ export const tzTracksBlockSchema: Template = {
   fields: [
     { type: 'string', label: 'Label (small, monospace)', name: 'label' },
     { type: 'string', label: 'Heading', name: 'heading' },
+    {
+      type: 'string',
+      label: 'Languages in one line',
+      name: 'languages',
+      description: 'Every historical language on the record, separated by · — the list below names them one at a time, this names them all at once.',
+    },
     {
       type: 'string',
       label: 'Note above the list',
