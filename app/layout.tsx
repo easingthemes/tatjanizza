@@ -1,4 +1,5 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/next";
 import { Metadata } from "next";
 import {
   Inter as FontSans,
@@ -101,6 +102,7 @@ export default function RootLayout({
           <VideoDialog />
         </VideoDialogProvider>
         <TailwindIndicator />
+        <Analytics />
       </body>
     </html>
   );
