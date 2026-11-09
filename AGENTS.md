@@ -14,7 +14,6 @@ Differences when you are not Claude Code:
 
 - The commit trailer `Changed-by: $CLAUDE_CODE_USER_EMAIL` — that variable is not set here. Use `Changed-by: codex` instead.
 - You may not have Vercel tools. Use the GitHub commit status on your commit to see whether the Vercel build passed. If you can not check it, say so and give the link anyway.
-- **In Codex, she may publish her own change** when she is happy with it. This replaces the "publishing is Dragan's call" rule in the skill file. See the next section.
 
 ## Working with Tatjanizza in Codex
 
