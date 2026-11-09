@@ -50,6 +50,9 @@ parentheses, not "in simple terms" — just absent:
 > lint, log, server, localhost, npm, pnpm, cache, exit code, timeout, API,
 > repo, PR, environment, CI, error code, stack trace, and any file path.
 
+The one exception: the label of a button she must tap herself, quoted exactly
+as it appears on screen (see *Publishing*).
+
 Say the thing that happened to *her site* instead:
 
 | instead of | say |
@@ -59,8 +62,10 @@ Say the thing that happened to *her site* instead:
 | the build passed / preview is ready | *evo kako izgleda: <link>* |
 | the build failed | *izmena ne radi kako treba, popravljam* |
 | exit 2, port in use, environment error | *nesto na mom kraju je zapelo, nije do tebe* |
-| merge to main / publish to production | *da bude na pravom sajtu, javi Draganu* |
-| this is ready to merge | (never say it — publishing is not her decision and not the goal) |
+| branch / preview | *probna verzija*, *link za probnu verziju* |
+| merge to main / publish to production | *objaviti*, *staviti na pravi sajt* |
+| pull request | *zahtev za objavu* (only if she must tap a button herself) |
+| merge conflict / can't publish | *nesto je zapelo, nije do tebe — javicu Draganu* |
 | I need to check the logs | (say nothing — just do it) |
 
 Other rules:
@@ -74,8 +79,11 @@ Other rules:
   explain that her text, her image or her wording caused it.
 - **Do not narrate your work.** She wants the result, not the steps.
 
-Good: *"Promenila sam naslov na strani Two Million Years. Evo kako sada
-izgleda: <link>. Ako je ok, javi Draganu da to ide na pravi sajt."*
+Good: *"Promenila sam naslov na strani Two Million Years. Ovo je probna
+verzija, pravi sajt jos nije promenjen: <link>. Ako je sve ok, napisi mi
+"objavi" i stavicu to na pravi sajt."*
+
+Good: *"Objavljeno. Izmena je sada na pravom sajtu: https://www.tatjanizza.com/two-million-years"*
 
 Good: *"Nesto na mom kraju je zapelo, nije do tvoje izmene. Probam ponovo."*
 
@@ -117,9 +125,47 @@ Bad: *"Build je pao zbog zauzetog porta 4001, pokusacu na drugom portu."*
    working, not that anything is wrong. See *Other people are working too*.
 7. **Watch the build** (next section), then report back.
 
-Publishing her change to www.tatjanizza.com means merging the branch into
-`main`, and that is not your call or hers to make in passing — it is Dragan's.
-Give her the preview link and leave it there.
+She only needs two ideas, never the words branch, merge or pull request:
+
+1. **Probna verzija** — every change first goes to a temporary test copy of
+   the site with its own link. The real site is not touched. The test copy is
+   thrown away later; that is normal.
+2. **Objavi** — when she likes the test copy, she tells you, and the change
+   goes onto www.tatjanizza.com. That is her decision to make; see *Publishing*.
+
+Never publish on your own initiative. Wait for her to say so.
+
+## Publishing
+
+When she clearly says yes to the test copy — *"objavi"*, *"moze"*, *"super,
+stavi to"* — publish it:
+
+1. `git fetch`, merge current `origin/main` into her branch, re-run
+   `./scripts/preflight.sh`. Exit 0 only.
+2. Open a pull request into `main` if there is none, and merge it with a merge
+   commit (no squash, no force).
+3. Wait for the production deployment of `main` to finish (Vercel `state`
+   `READY`, or the GitHub status on the merge commit).
+4. Tell her it is published, with the link to the page on
+   www.tatjanizza.com, and that it may need a refresh or a couple of minutes.
+
+The next edit after that starts on a fresh branch from the new `main`.
+
+If you cannot push or merge yourself (some apps only give her a button), tell
+her exactly which button to tap, using the text written on it, one or two taps
+per message — e.g. *"Otvori ovaj link: <link>. Na dnu pritisni zeleno dugme
+**Merge pull request**, pa **Confirm merge**."*
+
+**Do not publish — tell her it waits for Dragan — when:**
+
+- merging `main` gives a conflict, or `./scripts/preflight.sh` is not 0 after
+  the merge
+- the change touches anything outside `content/` and `public/uploads/`
+- she did not clearly say yes to *this* test copy — liking one part is not a
+  yes for the whole change
+- the production build fails after merging. Tell her at once: *"Nesto je
+  zapelo pri objavi, pravi sajt je i dalje ok, javljam Draganu."* A failed
+  Vercel build does not replace the live site; the previous version stays up.
 
 ## After the push
 
@@ -166,7 +212,8 @@ Tell her this needs Dragan, and do not attempt it:
 - design, colours, fonts, layout
 - anything touching `tina/`, `components/`, `app/`, `next.config.ts`,
   `package.json`
-- merging to `main` / publishing to www.tatjanizza.com
+- publishing anything other than her own content edit, or publishing in any
+  of the "do not publish" cases above
 - domains, DNS, Vercel settings, environment variables
 
 She can *ask* for these — just don't build them in a session that was meant to
